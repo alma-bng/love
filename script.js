@@ -1,23 +1,32 @@
-// === GATE ===
+// =====================
+// GATE FUNCTIONALITY
+// =====================
 function enterSite() {
   const input = document.getElementById('magic-word').value.trim().toLowerCase();
-  const error = document.getElementById('gate-error');
-  const correctWord = 'love'; // your magic word
+  const gateError = document.getElementById('gate-error');
   const gate = document.getElementById('gate');
   const main = document.getElementById('main-content');
 
-  if (input === correctWord) {
+  const MAGIC_WORD = 'love'; // set your magic word here
+
+  if (input === MAGIC_WORD) {
     gate.style.display = 'none';
     main.classList.remove('hidden');
   } else {
-    error.style.display = 'block';
+    gateError.style.display = 'block';
   }
 }
 
-// === OPEN & CLOSE SECTIONS ===
-function openSection(id) {
-  document.querySelectorAll('.content').forEach(s => s.classList.add('hidden'));
-  const section = document.getElementById(id);
+// =====================
+// CARD SECTION FUNCTIONALITY
+// =====================
+function openSection(sectionId) {
+  // Close all other sections
+  document.querySelectorAll('.content').forEach(sec => {
+    sec.classList.add('hidden');
+  });
+
+  const section = document.getElementById(sectionId);
   if (section) section.classList.remove('hidden');
 }
 
@@ -26,47 +35,60 @@ function goBack(event) {
   const section = event.target.closest('.content');
   if (section) section.classList.add('hidden');
 
-  // Hide yes message & kiss
-  document.getElementById('yes-message').classList.add('hidden');
+  // Hide proposal YES message and kiss
+  const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
-  kiss.classList.add('hidden');
-  kiss.classList.remove('show');
+  if (msg) msg.classList.add('hidden');
+  if (kiss) {
+    kiss.classList.add('hidden');
+    kiss.classList.remove('show');
+  }
 
-  // Pause music
+  // Pause audio
   const music = document.getElementById('love-music');
-  music.pause();
-  music.currentTime = 0;
+  if (music) {
+    music.pause();
+    music.currentTime = 0;
+  }
 }
 
-// === YES BUTTON ===
+// =====================
+// PROPOSAL YES/NO
+// =====================
 function sayYes() {
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
 
-  msg.classList.remove('hidden');
+  if (msg) msg.classList.remove('hidden');
 
-  setTimeout(() => {
-    kiss.classList.remove('hidden');
-    kiss.classList.add('show');
-  }, 1000);
+  if (kiss) {
+    setTimeout(() => {
+      kiss.classList.remove('hidden');
+      kiss.classList.add('show');
+    }, 1000);
+  }
 
-  music.currentTime = 0;
-  music.play().catch(err => console.log("Audio blocked:", err));
+  if (music) {
+    music.currentTime = 0;
+    music.play().catch(err => console.log("Audio blocked:", err));
+  }
 }
 
-// === NO BUTTON ===
-function runAway(btn) {
-  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-  btn.style.position = 'absolute';
-  btn.style.left = x + 'px';
-  btn.style.top = y + 'px';
+function runAway(button) {
+  const x = Math.random() * (window.innerWidth - button.offsetWidth);
+  const y = Math.random() * (window.innerHeight - button.offsetHeight);
+  button.style.position = 'absolute';
+  button.style.left = x + 'px';
+  button.style.top = y + 'px';
 }
 
-// === OPTIONAL: CARD HEADER CLICK ===
+// =====================
+// OPTIONAL: CARD HEADER CLICK (for visual active card)
+// =====================
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.card');
+
   cards.forEach(card => {
     const header = card.querySelector('h2, h3, h4, h5');
     if (!header) return;
