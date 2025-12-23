@@ -318,4 +318,24 @@ body {
   100% {
     transform: scale(1);
   }
+/* Instead of fixed width */
+.container {
+    width: 90%;         /* adapts to screen size */
+    max-width: 1200px;  /* prevents it from getting too wide on desktop */
+    margin: 0 auto;     /* centers it */
+}
+
+/* Make images responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    .card {
+        width: 100%;   /* stack cards vertically */
+    }
+}
 }
