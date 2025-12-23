@@ -1,262 +1,80 @@
-// Open a specific section inside a card
-function openSection(sectionId) {
-  // Close all other sections first
-  document.querySelectorAll('.content').forEach(section => {
-    section.classList.remove('show');
-    section.classList.add('hidden');
-  });
-
-  const section = document.getElementById(sectionId);
-
-  if (section) {
-    section.classList.remove('hidden');
-    section.classList.add('show');
-
-    // Smooth scroll to the opened section
-    setTimeout(() => {
-      section.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }, 200);
-  }
-}
-
-// Go back (close section)
-function goBack(event) {
-  event.stopPropagation(); // prevent reopening card
-  const section = event.target.closest('.content');
-
-  if (section) {
-    section.classList.remove('show');
-
-    setTimeout(() => {
-      section.classList.add('hidden');
-    }, 300);
-
-    // Scroll back up to cards
-    document.querySelector('.nav-cards').scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
-
-function sayYes(event) {
-    event.stopPropagation();
-
-    const msg = document.getElementById('yes-message');
-    const kiss = document.getElementById('kiss');
-    const music = document.getElementById('love-music');
-
-    // Show message
-    msg.classList.remove('hidden');
-
-    // After 1 second, show kiss
-    setTimeout(() => {
-        kiss.classList.remove('hidden');
-        kiss.classList.add('show');
-    }, 1000);
-
-    // Play love song
-    music.play().catch(err => {
-        console.log("Music couldn't autoplay:", err);
-    });
-}
-function goBack(event) {
-    event.stopPropagation();
-    const section = event.target.closest('section');
-    if (section) section.classList.add('hidden');
-
-    // Hide message & kiss
-    document.getElementById('yes-message').classList.add('hidden');
-    const kiss = document.getElementById('kiss');
-    kiss.classList.add('hidden');
-    kiss.classList.remove('show');
-
-    // Pause love song
-    const music = document.getElementById('love-music');
-    music.pause();
-    music.currentTime = 0; // reset to start
-}
-
-
-// Proposal NO button runs away 😈
-function runAway(btn) {
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 100 - 50;
-
-  btn.style.transform = `translate(${x}px, ${y}px)`;
-}
+// === GATE ===
 function enterSite() {
-  const input = document.getElementById('magic-word').value.toLowerCase().trim();
+  const input = document.getElementById('magic-word').value.trim().toLowerCase();
   const error = document.getElementById('gate-error');
+  const correctWord = 'love'; // your magic word
   const gate = document.getElementById('gate');
   const main = document.getElementById('main-content');
 
-  // 🔐 SET YOUR MAGIC WORD HERE
-const MAGIC_WORD = "december19";
-function enterSite() {
-    const magicWordInput = document.getElementById('magic-word').value.trim().toLowerCase();
-    const gateError = document.getElementById('gate-error');
-
-    const correctWord = 'love'; // set your magic word
-
-    if (magicWordInput === correctWord) {
-        document.getElementById('gate').style.display = 'none';
-        document.getElementById('main-content').classList.remove('hidden');
-    } else {
-        gateError.style.display = 'block';
-    }
-}
-
-function openSection(sectionId) {
-  // close all sections first
-  document.querySelectorAll('.content').forEach(section => {
-    section.classList.add('hidden');
-  });
-
-  // open the selected one
-  document.getElementById(sectionId).classList.remove('hidden');
-}
-
-function goBack(event) {
-  event.stopPropagation();
-
-  // close the parent section
-  event.target.closest('.content').classList.add('hidden');
-}
-
-
-function goBack(event) {
-    event.stopPropagation();
-    event.target.parentElement.classList.add('hidden');
-}
-
-function sayYes() {
-    document.getElementById('yes-message').classList.remove('hidden');
-}
-
-function runAway(button) {
-    const x = Math.floor(Math.random() * (window.innerWidth - button.offsetWidth));
-    const y = Math.floor(Math.random() * (window.innerHeight - button.offsetHeight));
-    button.style.position = 'absolute';
-    button.style.left = x + 'px';
-    button.style.top = y + 'px';
-}
-
-  if (input !== MAGIC_WORD) {
-    error.classList.remove('hidden');
-    return;
-  }
-
-  error.classList.add('hidden');
-  gate.style.opacity = '0';
-
-  setTimeout(() => {
+  if (input === correctWord) {
     gate.style.display = 'none';
     main.classList.remove('hidden');
-    main.classList.add('revealed');
-  }, 800);
+  } else {
+    error.style.display = 'block';
+  }
 }
-function enterSite() {
-    const magicWordInput = document.getElementById('magic-word').value.trim().toLowerCase();
-    const gateError = document.getElementById('gate-error');
-    const correctWord = 'love';
 
-    if (magicWordInput === correctWord) {
-        // hide gate
-        document.getElementById('gate').style.display = 'none';
-        // enable scrolling now that gate is gone
-        document.body.style.overflow = 'auto';
-        // show main content
-        document.getElementById('main-content').classList.remove('hidden');
-    } else {
-        gateError.style.display = 'block';
-    }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.card');
-
-  cards.forEach(card => {
-    const header = card.querySelector('.card-header');
-    if (!header) return;
-
-    header.addEventListener('click', () => {
-      const isOpen = card.classList.contains('active');
-
-      // Close all cards
-      cards.forEach(c => c.classList.remove('active'));
-
-      // Only open clicked card
-      if (!isOpen) card.classList.add('active');
-    });
-  });
-});
-function sayYes(event) {
-  event.stopPropagation();
-
-  document.getElementById('yes-message').classList.remove('hidden');
-  document.getElementById('kiss').classList.remove('hidden');
-}
-function sayYes(event) {
-  event.stopPropagation();
-
-  // Show " YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖"
-  const message = document.getElementById('yes-message');
-  message.classList.remove('hidden');
-
-  // After 1 second, show the kiss
-  setTimeout(() => {
-    const kiss = document.getElementById('kiss');
-    kiss.classList.remove('hidden');
-    kiss.classList.add('show');
-  }, 1000); // 1000ms = 1s
+// === OPEN & CLOSE SECTIONS ===
+function openSection(id) {
+  document.querySelectorAll('.content').forEach(s => s.classList.add('hidden'));
+  const section = document.getElementById(id);
+  if (section) section.classList.remove('hidden');
 }
 
 function goBack(event) {
   event.stopPropagation();
-  const section = event.target.closest('section');
-  section.classList.add('hidden');
+  const section = event.target.closest('.content');
+  if (section) section.classList.add('hidden');
 
+  // Hide yes message & kiss
   document.getElementById('yes-message').classList.add('hidden');
   const kiss = document.getElementById('kiss');
   kiss.classList.add('hidden');
   kiss.classList.remove('show');
+
+  // Pause music
+  const music = document.getElementById('love-music');
+  music.pause();
+  music.currentTime = 0;
 }
 
-function openSection(id) {
-  document.getElementById(id).classList.remove('hidden');
+// === YES BUTTON ===
+function sayYes() {
+  const msg = document.getElementById('yes-message');
+  const kiss = document.getElementById('kiss');
+  const music = document.getElementById('love-music');
+
+  msg.classList.remove('hidden');
+
+  setTimeout(() => {
+    kiss.classList.remove('hidden');
+    kiss.classList.add('show');
+  }, 1000);
+
+  music.currentTime = 0;
+  music.play().catch(err => console.log("Audio blocked:", err));
 }
 
-function runAway(button) {
-  const x = Math.floor(Math.random() * 80);
-  const y = Math.floor(Math.random() * 80);
-  button.style.position = 'absolute';
-  button.style.left = x + '%';
-  button.style.top = y + '%';
-}<div class="proposal-buttons">
-  <button class="yes-btn" onclick="sayYes()">YES 💖</button>
-  <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
-</div>
+// === NO BUTTON ===
+function runAway(btn) {
+  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+  btn.style.position = 'absolute';
+  btn.style.left = x + 'px';
+  btn.style.top = y + 'px';
+}
 
-<!-- YES message -->
-<div id="yes-message" class="hidden">
-  YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
-</div>
+// === OPTIONAL: CARD HEADER CLICK ===
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const header = card.querySelector('h2, h3, h4, h5');
+    if (!header) return;
 
-<!-- Kiss -->
-<div id="kiss" class="hidden">
-  💋
-</div>
-
-<!-- Love song -->
-<audio id="love-music" preload="auto" playsinline>
-  <source src="./best-part.mp3" type="audio/mpeg">
-</audio>
-
-
-
-
-
-
+    header.addEventListener('click', () => {
+      const isActive = card.classList.contains('active');
+      cards.forEach(c => c.classList.remove('active'));
+      if (!isActive) card.classList.add('active');
+    });
+  });
+});
