@@ -4,49 +4,61 @@ function enterSite() {
   const error = document.getElementById('gate-error');
   const gate = document.getElementById('gate');
   const main = document.getElementById('main-content');
-  const MAGIC_WORD = 'love'; // your magic word
+  const MAGIC_WORD = 'love';
 
   if (input === MAGIC_WORD) {
-    // hide error if visible
     error.style.display = 'none';
-
-    // fade out gate
     gate.style.opacity = 0;
     setTimeout(() => {
       gate.style.display = 'none';
       main.style.display = 'block';
-    }, 800);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 500);
   } else {
     error.style.display = 'block';
   }
 }
 
-// ===== OPEN/CLOSE SECTIONS =====
+// ===== OPEN/CLOSE CARD SECTIONS =====
 function openSection(sectionId) {
-  // close all other sections
-  document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
-  
-  // open the selected section
+  // Close all sections first
+  document.querySelectorAll('.content').forEach(section => section.classList.remove('show'));
+
+  // Remove "active" class from all cards
+  document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+
+  // Open selected section
   const section = document.getElementById(sectionId);
-  if (section) section.classList.add('show');
+  const parentCard = section ? section.closest('.card') : null;
+  if (section) {
+    section.classList.add('show');
+    if (parentCard) parentCard.classList.add('active');
+  }
+
+  // Scroll smoothly to section
+  setTimeout(() => {
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
+// Close section
 function goBack(event) {
   event.stopPropagation();
   const section = event.target.closest('.content');
   if (section) section.classList.remove('show');
 
-  // hide proposal stuff if needed
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
-
   if (msg) msg.style.display = 'none';
   if (kiss) kiss.style.display = 'none';
   if (music) {
     music.pause();
     music.currentTime = 0;
   }
+
+  const parentCard = section ? section.closest('.card') : null;
+  if (parentCard) parentCard.classList.remove('active');
 }
 
 // ===== PROPOSAL YES =====
@@ -60,7 +72,7 @@ function sayYes() {
   if (kiss) {
     kiss.style.display = 'block';
     kiss.classList.remove('show');
-    setTimeout(() => kiss.classList.add('show'), 100); // floating animation
+    setTimeout(() => kiss.classList.add('show'), 100);
   }
 
   if (music) {
@@ -78,7 +90,7 @@ function runAway(btn) {
   btn.style.top = y + 'px';
 }
 
-// ===== FAVORITE PICTURES CAROUSEL =====
+// ===== CARDS INTERACTIONS =====
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.card');
 
@@ -89,15 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
     header.addEventListener('click', () => {
       const isActive = card.classList.contains('active');
 
-      // close all cards
+      // Close all cards and sections
       cards.forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
 
-      // open clicked card
+      // Open clicked card if it was not active
       if (!isActive) {
         card.classList.add('active');
         const section = card.querySelector('.content');
         if (section) section.classList.add('show');
+
+        // Scroll smoothly to section
+        setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
       }
     });
   });
