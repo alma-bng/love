@@ -109,6 +109,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 card.classList.add('active');
                 section.scrollIntoView({behavior:'smooth', block:'start'});
             }
-        });
-    });
+        
+    };function openCard(card) {
+  const content = card.querySelector('.content');
+  
+  // Close all other cards first
+  document.querySelectorAll('.card .content').forEach(c => {
+    if (c !== content) c.style.display = 'none';
+  });
+
+  // Toggle this card
+  content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+
 });
+
