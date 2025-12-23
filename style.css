@@ -1,162 +1,243 @@
-/* Reset */
+/* =====================
+   GLOBAL RESET
+===================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
 }
 
-/* Body */
 body {
-  background: #ffe6f0; /* soft pink */
-  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  background: #fdf7f9;
+  color: #2e2e2e;
+  min-height: 100vh;
 }
 
-/* Gate */
+/* =====================
+   GATE (OPENING SCREEN)
+===================== */
 #gate {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #f8b7c8, #fce1e8);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background: #ffcce6;
+  justify-content: center;
+  z-index: 100;
+}
+
+.gate-content {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3rem 2.5rem;
+  border-radius: 22px;
   text-align: center;
-  transition: opacity 0.8s ease;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
 }
 
-#gate h1 {
+.gate-content h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  color: #ff66a3;
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+  color: #3a1f28;
 }
 
-#gate p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #cc3366;
+.gate-content p {
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  color: #5a3b43;
 }
 
 #magic-word {
-  padding: 10px 15px;
-  border-radius: 12px;
-  border: 2px solid #ff66a3;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  border-radius: 12px;
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 14px;
   border: none;
-  background: #ff66a3;
-  color: #fff;
-  font-weight: 600;
+  background: #f6e4ea;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+#magic-word::placeholder {
+  color: #9b6a78;
+}
+
+#gate-error {
+  color: #6b3f4a;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.gate-content button {
+  background: #e7a4b6;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 18px;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.gate-content button:hover {
+  transform: translateY(-2px);
+  background: #db8fa4;
 }
 
-/* Main content */
-#main-content {
+/* =====================
+   MAIN CONTENT
+===================== */
+.hidden {
   display: none;
-  padding: 30px;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ffe6f0, #fff0f5);
-  transition: all 0.5s ease;
+}
+
+#main-content {
+  padding: 3rem 1.5rem 4rem;
+  background: linear-gradient(
+    180deg,
+    #fdecef 0%,
+    #e9f3ee 40%,
+    #fffaf5 100%
+  );
 }
 
 #main-content h2 {
   text-align: center;
-  color: #ff66a3;
-  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: #3a1f28;
+  margin-bottom: 0.6rem;
 }
 
 #main-content p {
   text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  font-size: 0.95rem;
+  color: #4a3a3f;
 }
 
-/* Cards */
+/* =====================
+   NAV CARDS
+===================== */
 .nav-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.8rem;
 }
 
 .card {
-  background: #fff0f5;
-  border-radius: 15px;
-  padding: 20px;
-  width: 250px;
+  background: #ffffff;
+  padding: 2rem 1.6rem;
+  border-radius: 24px;
   cursor: pointer;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
 }
 
-/* Content sections */
-.content {
-  display: none;
-  margin-top: 15px;
-}
-
-.content.show {
-  display: block;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(-10px);}
-  to {opacity:1; transform: translateY(0);}
-}
-
-/* Proposal YES message and kiss */
-#yes-message {
+.card h2,
+.card h3,
+.card h4,
+.card h5 {
+  font-family: 'Playfair Display', serif;
   text-align: center;
-  margin-top: 20px;
-  font-size: 1.3rem;
-  color: #ff3385;
-  display: none;
+  color: #3a1f28;
+  font-size: 1.4rem;
+}
+
+/* =====================
+   INSIDE SECTIONS
+===================== */
+.content {
+  margin-top: 1.5rem;
+}
+
+.content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.content li {
+  background: #f6f1ed;
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #3f3a3c;
+}
+
+/* =====================
+   BACK BUTTON
+===================== */
+.content button {
+  margin-top: 1.2rem;
+  background: #cfe3da;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.content button:hover {
+  background: #bdd6cb;
+}
+
+/* =====================
+   PROPOSAL
+===================== */
+.proposal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.yes-btn {
+  background: #e7a4b6;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.no-btn {
+  background: #e0e0e0;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* YES MESSAGE */
+#yes-message {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #3a1f28;
 }
 
 #kiss {
-  font-size: 3rem;
   text-align: center;
-  display: none;
-  animation: floatUp 2s ease forwards;
+  font-size: 2.5rem;
+  margin-top: 0.5rem;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity:1;}
-  100% { transform: translateY(-50px); opacity:0;}
-}
-
-/* Favorite pictures */
-#favorites-pictures {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding: 10px;
-  scroll-behavior: smooth;
-}
-
-#favorites-pictures img {
-  width: 150px;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-#favorites-pictures img:hover {
-  transform: scale(1.1);
+/* =====================
+   IMAGES
+===================== */
+.card img {
+  width: 100%;
+  border-radius: 18px;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
