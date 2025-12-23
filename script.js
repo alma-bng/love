@@ -248,6 +248,21 @@ btn.addEventListener("click", () => {
     }
 });
 
+function sayYes(event) {
+  event.stopPropagation();
+
+  // show the yes message
+  document.getElementById('yes-message').classList.remove('hidden');
+  document.getElementById('kiss').classList.remove('hidden');
+
+  // play love music
+  const music = document.getElementById('love-music');
+  music.currentTime = 0;
+  music.play().catch(() => {
+    console.log("User interaction required for audio playback");
+  });
+}
+
 
 
 
