@@ -337,6 +337,15 @@ img {
     .card {
         width: 100%;   /* stack cards vertically */
     }
+}.hidden {
+    display: none;
 }
+
+#kiss.show {
+    display: block;
+    /* Add animation if you want */
 }
+
+}
+
 
