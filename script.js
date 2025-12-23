@@ -4,7 +4,7 @@ function enterSite() {
   const error = document.getElementById('gate-error');
   const gate = document.getElementById('gate');
   const main = document.getElementById('main-content');
-  const MAGIC_WORD = 'love';
+  const MAGIC_WORD = 'love'; // Set your magic word
 
   if (input === MAGIC_WORD) {
     error.style.display = 'none';
@@ -19,34 +19,34 @@ function enterSite() {
   }
 }
 
-// ===== OPEN/CLOSE CARD SECTIONS =====
+// ===== OPEN/CLOSE SECTIONS =====
 function openSection(sectionId) {
-  // Close all sections first
-  document.querySelectorAll('.content').forEach(section => section.classList.remove('show'));
-
-  // Remove "active" class from all cards
-  document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+  // Close all sections
+  document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
 
   // Open selected section
   const section = document.getElementById(sectionId);
-  const parentCard = section ? section.closest('.card') : null;
   if (section) {
     section.classList.add('show');
+    const parentCard = section.closest('.card');
     if (parentCard) parentCard.classList.add('active');
-  }
 
-  // Scroll smoothly to section
-  setTimeout(() => {
-    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 100);
+    // Smooth scroll to section
+    setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
 }
 
-// Close section
+// Close section via goBack button
 function goBack(event) {
   event.stopPropagation();
   const section = event.target.closest('.content');
   if (section) section.classList.remove('show');
 
+  const parentCard = section ? section.closest('.card') : null;
+  if (parentCard) parentCard.classList.remove('active');
+
+  // Hide proposal stuff if open
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
@@ -56,9 +56,6 @@ function goBack(event) {
     music.pause();
     music.currentTime = 0;
   }
-
-  const parentCard = section ? section.closest('.card') : null;
-  if (parentCard) parentCard.classList.remove('active');
 }
 
 // ===== PROPOSAL YES =====
@@ -90,28 +87,29 @@ function runAway(btn) {
   btn.style.top = y + 'px';
 }
 
-// ===== CARDS INTERACTIONS =====
+// ===== CARDS CLICK =====
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.card');
 
   cards.forEach(card => {
-    const header = card.querySelector('h2, h3, h4, h5');
-    if (!header) return;
+    card.addEventListener('click', (e) => {
+      // Don't trigger when clicking inside a content section or button
+      if (e.target.closest('.content') || e.target.tagName === 'BUTTON') return;
 
-    header.addEventListener('click', () => {
-      const isActive = card.classList.contains('active');
+      const section = card.querySelector('.content');
+      const isOpen = section.classList.contains('show');
 
-      // Close all cards and sections
-      cards.forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
+      // Close all other cards
+      cards.forEach(c => {
+        c.classList.remove('active');
+        const s = c.querySelector('.content');
+        if (s) s.classList.remove('show');
+      });
 
-      // Open clicked card if it was not active
-      if (!isActive) {
+      // Toggle clicked card
+      if (!isOpen && section) {
+        section.classList.add('show');
         card.classList.add('active');
-        const section = card.querySelector('.content');
-        if (section) section.classList.add('show');
-
-        // Scroll smoothly to section
         setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
       }
     });
