@@ -241,3 +241,19 @@ body {
   margin-bottom: 0.8rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
+#yes-message,
+#kiss {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
