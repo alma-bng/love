@@ -1,259 +1,166 @@
-/* =====================
-   GLOBAL RESET
-===================== */
+/* ========== RESET ========== */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
   font-family: 'Montserrat', sans-serif;
-  background: #fdf7f9;
-  color: #2e2e2e;
-  min-height: 100vh;
 }
 
-/* =====================
-   GATE (OPENING SCREEN)
-===================== */
+/* ========== BODY ========== */
+body {
+  background: #ffe4e1; /* light romantic pink */
+  overflow-x: hidden;
+}
+
+/* ========== GATE ========== */
 #gate {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #f8b7c8, #fce1e8);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  z-index: 100;
-}
-
-.gate-content {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 3rem 2.5rem;
-  border-radius: 22px;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: #ffccd5;
+  transition: opacity 0.8s ease;
   text-align: center;
-  width: 90%;
-  max-width: 420px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
 }
 
-.gate-content h1 {
+#gate h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.3rem;
-  margin-bottom: 1rem;
-  color: #3a1f28;
+  font-size: 3rem;
+  color: #ff4d6d;
 }
 
-.gate-content p {
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-  color: #5a3b43;
+#gate p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 #magic-word {
-  width: 100%;
-  padding: 0.9rem;
-  border-radius: 14px;
-  border: none;
-  background: #f6e4ea;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  outline: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid #ff4d6d;
+  margin-bottom: 10px;
 }
 
-#magic-word::placeholder {
-  color: #9b6a78;
-}
-
-#gate-error {
-  color: #6b3f4a;
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.gate-content button {
-  background: #e7a4b6;
-  border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 18px;
-  font-size: 0.9rem;
+button {
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.gate-content button:hover {
-  transform: translateY(-2px);
-  background: #db8fa4;
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* =====================
-   MAIN CONTENT
-===================== */
-.hidden {
-  display: none;
-}
-
+/* ========== MAIN CONTENT ========== */
 #main-content {
-  padding: 3rem 1.5rem 4rem;
-  background: linear-gradient(
-    180deg,
-    #fdecef 0%,
-    #e9f3ee 40%,
-    #fffaf5 100%
-  );
+  display: none;
+  padding: 30px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe4e1, #fff0f5);
+  transition: all 0.5s ease;
 }
 
 #main-content h2 {
   text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  color: #3a1f28;
-  margin-bottom: 0.6rem;
+  color: #ff4d6d;
+  margin-bottom: 15px;
 }
 
 #main-content p {
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-  font-size: 0.95rem;
-  color: #4a3a3f;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
-/* =====================
-   NAV CARDS
-===================== */
+/* ========== CARDS ========== */
 .nav-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .card {
-  background: #ffffff;
-  padding: 2rem 1.6rem;
-  border-radius: 24px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
   cursor: pointer;
   position: relative;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-.card h2,
-.card h3,
-.card h4,
-.card h5 {
-  font-family: 'Playfair Display', serif;
-  text-align: center;
-  color: #3a1f28;
-  font-size: 1.4rem;
-}
-
-/* =====================
-   INSIDE SECTIONS
-===================== */
 .content {
-  margin-top: 1.5rem;
+  display: none;
+  margin-top: 15px;
 }
 
-.content ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.content li {
-  background: #f6f1ed;
-  margin-bottom: 0.7rem;
-  padding: 0.7rem 0.9rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  color: #3f3a3c;
-}
-
-/* =====================
-   BACK BUTTON
-===================== */
-.content button {
-  margin-top: 1.2rem;
-  background: #cfe3da;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-.content button:hover {
-  background: #bdd6cb;
-}
-
-/* =====================
-   PROPOSAL
-===================== */
-.proposal-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
-}
-
-.yes-btn {
-  background: #e7a4b6;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.no-btn {
-  background: #e0e0e0;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-/* YES MESSAGE */
-#yes-message {
-  margin-top: 1.5rem;
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  color: #3a1f28;
-}
-
-#kiss {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-top: 0.5rem;
-}
-
-/* =====================
-   IMAGES
-===================== */
-.card img {
-  width: 100%;
-  border-radius: 18px;
-  margin-bottom: 0.8rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-#yes-message,
-#kiss {
-  animation: fadeIn 0.8s ease forwards;
+.content.show {
+  display: block;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from {opacity:0; transform: translateY(-10px);}
+  to {opacity:1; transform: translateY(0);}
 }
 
+/* ========== PROPOSAL ========== */
+.proposal-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#yes-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.3rem;
+  color: #ff4d6d;
+  display: none;
+}
+
+#kiss {
+  font-size: 3rem;
+  text-align: center;
+  display: none;
+  animation: floatUp 2s ease forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity:1;}
+  100% { transform: translateY(-50px); opacity:0;}
+}
+
+/* ========== FAVORITE PICS CAROUSEL ========== */
+#favorites-pictures {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+#favorites-pictures img {
+  width: 150px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#favorites-pictures img:hover {
+  transform: scale(1.1);
+}
