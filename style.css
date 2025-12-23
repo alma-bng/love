@@ -337,15 +337,15 @@ img {
     .card {
         width: 100%;   /* stack cards vertically */
     }
-}.hidden {
-    display: none;
+}#yes-message,
+#kiss {
+    display: none;   /* hide initially */
 }
 
 #kiss.show {
     display: block;
-    /* Add animation if you want */
+    /* optional: add animation here */
 }
 
-}
 
 
