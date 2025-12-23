@@ -256,4 +256,12 @@ body {
     transform: scale(1);
   }
 }
+.hidden {
+  display: none;
+}
+
+.content.show {
+  display: block;
+}
+
 
