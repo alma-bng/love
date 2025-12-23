@@ -9,13 +9,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <audio id="bg-music" loop>
-  <source src="best-part.mp3" type="audio/mpeg">
-</audio>
-
-<button id="music-btn">love</button>
-
-    <div id="gate">
+ <div id="gate">
   <div class="gate-content">
     <h1>For My Favorite Person 💌</h1>
     <p>Enter the magic word to unlock my heart</p>
@@ -107,20 +101,26 @@
       <button class="yes-btn" onclick="sayYes(event)">YES 💖</button>
       <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
     </div>
-
-    <!-- Step 1: I Love You Message -->
-    <p id="yes-message" class="hidden">
-      YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
-    </p>
-
-    <!-- Step 2: Big Kiss -->
-    <div id="kiss" class="hidden kiss">
-      💋
-    </div>
-
-    <button onclick="goBack(event)">← Back</button>
-  </section>
+<!-- YES message -->
+<div id="yes-message" class="hidden">
+  YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
 </div>
+
+<!-- Kiss animation/image -->
+<div id="kiss" class="hidden">
+  💋
+</div>
+
+<!-- Love song audio -->
+<audio id="love-music" loop>
+  <source src="best part.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Example YES button -->
+<button onclick="sayYes(event)">YES</button>
+
+  </section></div>
 
 
         <div class="card">
@@ -150,6 +150,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
