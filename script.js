@@ -195,7 +195,6 @@ function runAway(button) {
   button.style.left = x + '%';
   button.style.top = y + '%';
 }
-<script>
   const music = document.getElementById("bg-music");
   const btn = document.getElementById("music-btn");
 
@@ -207,5 +206,5 @@ function runAway(button) {
       music.pause();
       btn.textContent = "🎵 Play Music";
     }
-  });
-</script>
+  }
+
