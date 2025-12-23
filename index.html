@@ -97,22 +97,23 @@
   <section id="proposal" class="content hidden">
     <p>WOULD YOU GO ON INFINITE DATES WITH ME? 💍</p>
 
-    <div class="proposal-buttons">
-      <button class="yes-btn" onclick="sayYes(event)">YES 💖</button>
-      <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
-    </div>
+<div class="proposal-buttons">
+  <button class="yes-btn" onclick="sayYes()">YES 💖</button>
+  <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
+</div>
+
 <!-- YES message -->
-<div id="" class="hidden">
+<div id="yes-message" class="hidden">
   YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
 </div>
 
-<!-- Kiss animation/image -->
+<!-- Kiss -->
 <div id="kiss" class="hidden">
   💋
 </div>
 
-<!-- Love song audio -->
-<audio id="love-music" preload="auto">
+<!-- Love song -->
+<audio id="love-music" preload="auto" playsinline>
   <source src="./best-part.mp3" type="audio/mpeg">
 </audio>
 
@@ -142,6 +143,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
