@@ -194,4 +194,17 @@ function runAway(button) {
   button.style.position = 'absolute';
   button.style.left = x + '%';
   button.style.top = y + '%';
-}
+}const music = document.getElementById("bg-music");
+const btn = document.getElementById("music-btn");
+
+btn.addEventListener("click", () => {
+    if (music.paused) {
+        music.play();             // Play music
+        btn.textContent = "⏸ Pause Music";
+    } else {
+        music.pause();            // Pause music
+        btn.textContent = "🎵 Play Music";
+    }
+});
+
+
