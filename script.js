@@ -14,15 +14,15 @@ function enterSite() {
   }
 }
 
-// ===== OPEN CARD =====
+// ===== OPEN SECTION =====
 function openSection(id) {
-  // close all sections
+  // Close all sections
   document.querySelectorAll('.content').forEach(sec => {
     sec.classList.remove('show');
     sec.classList.add('hidden');
   });
 
-  // open selected
+  // Open this one
   const section = document.getElementById(id);
   if (section) {
     section.classList.remove('hidden');
@@ -30,7 +30,7 @@ function openSection(id) {
   }
 }
 
-// ===== CLOSE CARD =====
+// ===== GO BACK =====
 function goBack(event) {
   event.stopPropagation();
   const section = event.target.closest('.content');
@@ -39,7 +39,7 @@ function goBack(event) {
   section.classList.remove('show');
   section.classList.add('hidden');
 
-  // reset proposal extras
+  // Reset proposal stuff
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
@@ -52,20 +52,25 @@ function goBack(event) {
   }
 }
 
-// ===== YES BUTTON =====
+// ===== PROPOSAL YES =====
 function sayYes() {
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
 
-  msg.classList.remove('hidden');
-  kiss.classList.remove('hidden');
-
-  music.currentTime = 0;
-  music.play();
+  if (msg) msg.style.display = 'block';
+  if (kiss) {
+    kiss.style.display = 'block';
+    kiss.classList.remove('show');
+    setTimeout(() => kiss.classList.add('show'), 100);
+  }
+  if (music) {
+    music.currentTime = 0;
+    music.play();
+  }
 }
 
-// ===== NO BUTTON =====
+// ===== PROPOSAL NO =====
 function runAway(btn) {
   const x = Math.random() * 80;
   const y = Math.random() * 80;
@@ -73,3 +78,38 @@ function runAway(btn) {
   btn.style.left = x + '%';
   btn.style.top = y + '%';
 }
+
+// ===== AUTOMATIC CARD CLICK HANDLER =====
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', e => {
+      // Ignore clicks on buttons
+      if (e.target.tagName === 'BUTTON') return;
+      // Ignore clicks inside .content
+      if (e.target.closest('.content')) return;
+
+      const section = card.querySelector('.content');
+      if (!section) return;
+
+      const isOpen = section.classList.contains('show');
+
+      // Close all other cards
+      document.querySelectorAll('.card').forEach(c => {
+        c.classList.remove('active');
+        const s = c.querySelector('.content');
+        if (s) {
+          s.classList.remove('show');
+          s.classList.add('hidden');
+        }
+      });
+
+      // Open clicked card if it was closed
+      if (!isOpen) {
+        section.classList.remove('hidden');
+        section.classList.add('show');
+        card.classList.add('active');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
