@@ -235,33 +235,24 @@ function runAway(button) {
   button.style.position = 'absolute';
   button.style.left = x + '%';
   button.style.top = y + '%';
-}const music = document.getElementById("bg-music");
-const btn = document.getElementById("music-btn");
+}function sayYes() {
+  const music = document.getElementById('love-music');
 
-btn.addEventListener("click", () => {
-    if (music.paused) {
-        music.play();             // Play music
-        btn.textContent = "⏸ Pause Music";
-    } else {
-        music.pause();            // Pause music
-        btn.textContent = "🎵 Play Music";
-    }
-});
-
-function sayYes(event) {
-  event.stopPropagation();
-
-  // show the yes message
+  // show love content
   document.getElementById('yes-message').classList.remove('hidden');
   document.getElementById('kiss').classList.remove('hidden');
 
-  // play love music
-  const music = document.getElementById('love-music');
+  // play music
+  music.muted = false;
+  music.volume = 1;
   music.currentTime = 0;
-  music.play().catch(() => {
-    console.log("User interaction required for audio playback");
+
+  music.play().catch(err => {
+    console.log('Audio blocked:', err);
   });
 }
+
+
 
 
 
