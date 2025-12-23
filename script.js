@@ -195,3 +195,17 @@ function runAway(button) {
   button.style.left = x + '%';
   button.style.top = y + '%';
 }
+<script>
+  const music = document.getElementById("bg-music");
+  const btn = document.getElementById("music-btn");
+
+  btn.addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+      btn.textContent = "⏸ Pause Music";
+    } else {
+      music.pause();
+      btn.textContent = "🎵 Play Music";
+    }
+  });
+</script>
