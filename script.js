@@ -42,17 +42,44 @@ function goBack(event) {
   }
 }
 
-// Proposal YES button
-function sayYes() {
-  const msg = document.getElementById('yes-message');
-  msg.classList.remove('hidden');
+function sayYes(event) {
+    event.stopPropagation();
 
-  // Optional cute effect
-  msg.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'
-  });
+    const msg = document.getElementById('yes-message');
+    const kiss = document.getElementById('kiss');
+    const music = document.getElementById('love-music');
+
+    // Show message
+    msg.classList.remove('hidden');
+
+    // After 1 second, show kiss
+    setTimeout(() => {
+        kiss.classList.remove('hidden');
+        kiss.classList.add('show');
+    }, 1000);
+
+    // Play love song
+    music.play().catch(err => {
+        console.log("Music couldn't autoplay:", err);
+    });
 }
+function goBack(event) {
+    event.stopPropagation();
+    const section = event.target.closest('section');
+    if (section) section.classList.add('hidden');
+
+    // Hide message & kiss
+    document.getElementById('yes-message').classList.add('hidden');
+    const kiss = document.getElementById('kiss');
+    kiss.classList.add('hidden');
+    kiss.classList.remove('show');
+
+    // Pause love song
+    const music = document.getElementById('love-music');
+    music.pause();
+    music.currentTime = 0; // reset to start
+}
+
 
 // Proposal NO button runs away 😈
 function runAway(btn) {
@@ -206,5 +233,6 @@ btn.addEventListener("click", () => {
         btn.textContent = "🎵 Play Music";
     }
 });
+
 
 
