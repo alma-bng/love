@@ -17,7 +17,7 @@ function enterSite() {
   }
 }
 
-// ===== CARDS =====
+// ===== OPEN/CLOSE CARDS =====
 function openSection(sectionId) {
   document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
   const section = document.getElementById(sectionId);
@@ -41,7 +41,7 @@ function goBack(event) {
   }
 }
 
-// ===== PROPOSAL =====
+// ===== PROPOSAL YES =====
 function sayYes() {
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
@@ -60,6 +60,7 @@ function sayYes() {
   }
 }
 
+// ===== PROPOSAL NO =====
 function runAway(btn) {
   const x = Math.random() * (window.innerWidth - btn.offsetWidth);
   const y = Math.random() * (window.innerHeight - btn.offsetHeight);
