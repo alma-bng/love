@@ -235,22 +235,25 @@ function runAway(button) {
   button.style.position = 'absolute';
   button.style.left = x + '%';
   button.style.top = y + '%';
-}function sayYes() {
-  const music = document.getElementById('love-music');
+}<div class="proposal-buttons">
+  <button class="yes-btn" onclick="sayYes()">YES 💖</button>
+  <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
+</div>
 
-  // show love content
-  document.getElementById('yes-message').classList.remove('hidden');
-  document.getElementById('kiss').classList.remove('hidden');
+<!-- YES message -->
+<div id="yes-message" class="hidden">
+  YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
+</div>
 
-  // play music
-  music.muted = false;
-  music.volume = 1;
-  music.currentTime = 0;
+<!-- Kiss -->
+<div id="kiss" class="hidden">
+  💋
+</div>
 
-  music.play().catch(err => {
-    console.log('Audio blocked:', err);
-  });
-}
+<!-- Love song -->
+<audio id="love-music" preload="auto" playsinline>
+  <source src="./best-part.mp3" type="audio/mpeg">
+</audio>
 
 
 
