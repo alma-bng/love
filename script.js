@@ -4,7 +4,7 @@ function enterSite() {
   const error = document.getElementById('gate-error');
   const gate = document.getElementById('gate');
   const main = document.getElementById('main-content');
-  const MAGIC_WORD = 'love'; // Set your magic word
+  const MAGIC_WORD = 'love';
 
   if (input === MAGIC_WORD) {
     error.style.display = 'none';
@@ -19,34 +19,29 @@ function enterSite() {
   }
 }
 
-// ===== OPEN/CLOSE SECTIONS =====
+// ===== OPEN/CLOSE SECTION =====
 function openSection(sectionId) {
-  // Close all sections
   document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
   document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
 
-  // Open selected section
   const section = document.getElementById(sectionId);
   if (section) {
     section.classList.add('show');
     const parentCard = section.closest('.card');
     if (parentCard) parentCard.classList.add('active');
-
-    // Smooth scroll to section
     setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 }
 
-// Close section via goBack button
 function goBack(event) {
   event.stopPropagation();
   const section = event.target.closest('.content');
-  if (section) section.classList.remove('show');
+  if (!section) return;
 
-  const parentCard = section ? section.closest('.card') : null;
+  section.classList.remove('show');
+  const parentCard = section.closest('.card');
   if (parentCard) parentCard.classList.remove('active');
 
-  // Hide proposal stuff if open
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
@@ -65,13 +60,11 @@ function sayYes() {
   const music = document.getElementById('love-music');
 
   if (msg) msg.style.display = 'block';
-
   if (kiss) {
     kiss.style.display = 'block';
     kiss.classList.remove('show');
     setTimeout(() => kiss.classList.add('show'), 100);
   }
-
   if (music) {
     music.currentTime = 0;
     music.play().catch(err => console.log("Audio blocked:", err));
@@ -87,16 +80,18 @@ function runAway(btn) {
   btn.style.top = y + 'px';
 }
 
-// ===== CARDS CLICK =====
+// ===== UNIVERSAL CARD CLICK =====
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.card');
 
   cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // Don't trigger when clicking inside a content section or button
+    card.addEventListener('click', e => {
+      // Ignore clicks inside content or buttons
       if (e.target.closest('.content') || e.target.tagName === 'BUTTON') return;
 
       const section = card.querySelector('.content');
+      if (!section) return;
+
       const isOpen = section.classList.contains('show');
 
       // Close all other cards
@@ -107,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // Toggle clicked card
-      if (!isOpen && section) {
+      if (!isOpen) {
         section.classList.add('show');
         card.classList.add('active');
         setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
