@@ -4,7 +4,7 @@ function enterSite() {
   const gate = document.getElementById('gate');
   const main = document.getElementById('main-content');
   const error = document.getElementById('gate-error');
-  const MAGIC_WORD = 'love';
+  const MAGIC_WORD = 'love'; // set your magic word
 
   if (input === MAGIC_WORD) {
     error.style.display = 'none';
@@ -15,24 +15,20 @@ function enterSite() {
   }
 }
 
-// ===== OPEN/CLOSE CARD =====
-function toggleCard(card) {
-  const section = card.querySelector('.content');
-  if (!section) return;
+// ===== OPEN/CLOSE CARDS =====
+function openSection(sectionId) {
+  // Close all other sections
+  document.querySelectorAll('.content').forEach(s => s.classList.remove('show'));
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
 
-  const isOpen = section.classList.contains('show');
-
-  // Close all cards
-  document.querySelectorAll('.card').forEach(c => {
-    c.classList.remove('active');
-    const s = c.querySelector('.content');
-    if (s) s.classList.remove('show');
-  });
-
-  // Open clicked card if it was closed
-  if (!isOpen) {
+  // Open the selected section
+  const section = document.getElementById(sectionId);
+  if (section) {
     section.classList.add('show');
-    card.classList.add('active');
+    const parentCard = section.closest('.card');
+    if (parentCard) parentCard.classList.add('active');
+
+    // Scroll smoothly
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
@@ -44,10 +40,10 @@ function goBack(event) {
   if (!section) return;
 
   section.classList.remove('show');
-  const card = section.closest('.card');
-  if (card) card.classList.remove('active');
+  const parentCard = section.closest('.card');
+  if (parentCard) parentCard.classList.remove('active');
 
-  // Reset proposal stuff
+  // Reset proposal elements
   const msg = document.getElementById('yes-message');
   const kiss = document.getElementById('kiss');
   const music = document.getElementById('love-music');
@@ -69,6 +65,7 @@ function sayYes() {
   if (msg) msg.style.display = 'block';
   if (kiss) {
     kiss.style.display = 'block';
+    kiss.classList.remove('show');
     setTimeout(() => kiss.classList.add('show'), 100);
   }
   if (music) {
@@ -86,13 +83,32 @@ function runAway(btn) {
   btn.style.top = y + 'px';
 }
 
-// ===== ATTACH CARD CLICK =====
+// ===== UNIVERSAL CARD CLICK =====
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', e => {
-      // Ignore clicks on buttons
-      if (e.target.tagName === 'BUTTON') return;
-      toggleCard(card);
+      // Ignore clicks inside buttons or already opened content
+      if (e.target.closest('button')) return;
+      if (e.target.closest('.content')) return;
+
+      const section = card.querySelector('.content');
+      if (!section) return;
+
+      const isOpen = section.classList.contains('show');
+
+      // Close all other cards
+      document.querySelectorAll('.card').forEach(c => {
+        c.classList.remove('active');
+        const s = c.querySelector('.content');
+        if (s) s.classList.remove('show');
+      });
+
+      // Open clicked card if it was closed
+      if (!isOpen) {
+        section.classList.add('show');
+        card.classList.add('active');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 });
