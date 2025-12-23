@@ -110,9 +110,23 @@ function enterSite() {
     }
 }
 
-function openSection(id) {
-    document.getElementById(id).classList.remove('hidden');
+function openSection(sectionId) {
+  // close all sections first
+  document.querySelectorAll('.content').forEach(section => {
+    section.classList.add('hidden');
+  });
+
+  // open the selected one
+  document.getElementById(sectionId).classList.remove('hidden');
 }
+
+function goBack(event) {
+  event.stopPropagation();
+
+  // close the parent section
+  event.target.closest('.content').classList.add('hidden');
+}
+
 
 function goBack(event) {
     event.stopPropagation();
@@ -233,6 +247,7 @@ btn.addEventListener("click", () => {
         btn.textContent = "🎵 Play Music";
     }
 });
+
 
 
 
