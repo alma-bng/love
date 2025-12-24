@@ -83,25 +83,41 @@ function runAway(button) {
     input.style.animation = "shake 0.4s";
     setTimeout(() => (input.style.animation = ""), 400);
   }
-}
+
 function releaseHearts() {
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 30; i++) {
     const heart = document.createElement("div");
     heart.innerText = ["💖", "💗", "💕", "💞"][Math.floor(Math.random() * 4)];
 
+    const xMove = Math.random() * 300 - 150;
+    const yMove = Math.random() * 300 - 150;
+
     heart.style.position = "fixed";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh"; // 🔥 anywhere on page
-    heart.style.fontSize = Math.random() * 20 + 16 + "px";
-    heart.style.opacity = Math.random();
+    heart.style.top = Math.random() * 100 + "vh";
+    heart.style.fontSize = Math.random() * 20 + 18 + "px";
+    heart.style.opacity = 0;
 
-    heart.style.animation = "floatAround 6s ease-in-out forwards";
+    heart.animate(
+      [
+        { transform: "translate(0,0) scale(0.8)", opacity: 0 },
+        { opacity: 1 },
+        {
+          transform: `translate(${xMove}px, ${yMove}px) scale(1.4)`,
+          opacity: 0
+        }
+      ],
+      {
+        duration: 6000,
+        easing: "ease-in-out"
+      }
+    );
 
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 6000);
   }
 }
+
 
 function loveExplosion() {
   for (let i = 0; i < 30; i++) {
@@ -198,6 +214,7 @@ document.querySelectorAll(".card img").forEach(img => {
     overlay.onclick = () => overlay.remove();
   });
 });
+
 
 
 
