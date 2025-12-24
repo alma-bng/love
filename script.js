@@ -51,14 +51,11 @@ function sayYes() {
   document.getElementById("kiss").classList.remove("hidden");
 
   const music = document.getElementById("love-music");
-  music.volume = 0.8;
-  music.play();
+  fadeInMusic(music);
 
   loveExplosion();
 
-  setTimeout(() => {
-    openLetter();
-  }, 1500);
+  setTimeout(openLetter, 1500);
 }
 
 
@@ -85,38 +82,20 @@ function runAway(button) {
   }
 
 function releaseHearts() {
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 20; i++) {
     const heart = document.createElement("div");
-    heart.innerText = ["💖", "💗", "💕", "💞"][Math.floor(Math.random() * 4)];
-
-    const xMove = Math.random() * 300 - 150;
-    const yMove = Math.random() * 300 - 150;
-
+    heart.innerText = "💖";
     heart.style.position = "fixed";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    heart.style.fontSize = Math.random() * 20 + 18 + "px";
-    heart.style.opacity = 0;
-
-    heart.animate(
-      [
-        { transform: "translate(0,0) scale(0.8)", opacity: 0 },
-        { opacity: 1 },
-        {
-          transform: `translate(${xMove}px, ${yMove}px) scale(1.4)`,
-          opacity: 0
-        }
-      ],
-      {
-        duration: 6000,
-        easing: "ease-in-out"
-      }
-    );
-
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.animation = "floatUp 4s ease-in forwards";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+
+    setTimeout(() => heart.remove(), 4000);
   }
 }
+
 
 
 function loveExplosion() {
@@ -214,7 +193,34 @@ document.querySelectorAll(".card img").forEach(img => {
     overlay.onclick = () => overlay.remove();
   });
 });
+setTimeout(() => {
+  alert("Still here? Good. I’m never leaving 💖");
+}, 60000); // 1 minute
+function fadeInMusic(audio) {
+  audio.volume = 0;
+  audio.play();
 
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 0.8) {
+      vol += 0.02;
+      audio.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 100);
+}
+
+const startDate = new Date("2023-12-19"); // CHANGE IF NEEDED
+
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
+  const days = Math.floor(diff / (737 * 60 * 60 * 24));
+  document.getElementById("days").innerText = days;
+}
+
+updateCounter();
 
 
 
