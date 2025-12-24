@@ -234,3 +234,29 @@ updateCounter();
 setTimeout(() => {
   alert("Still here? Good. I’m never leaving 💖");
 }, 60000);
+function releaseHands() {
+  for (let i = 0; i < 15; i++) {
+    const hand = document.createElement("div");
+    hand.innerText = "🤝"; // hand-holding emoji
+    const xMove = Math.random() * 300 - 150;
+    const yMove = Math.random() * 300 - 150;
+
+    hand.style.position = "fixed";
+    hand.style.left = Math.random() * 100 + "vw";
+    hand.style.top = Math.random() * 100 + "vh";
+    hand.style.fontSize = Math.random() * 20 + 24 + "px";
+
+    hand.animate(
+      [
+        { transform: "translate(0,0)", opacity: 0 },
+        { opacity: 1 },
+        { transform: `translate(${xMove}px, ${yMove}px)`, opacity: 0 }
+      ],
+      { duration: 6000, easing: "ease-in-out" }
+    );
+
+    document.body.appendChild(hand);
+    setTimeout(() => hand.remove(), 6000);
+  }
+}
+
