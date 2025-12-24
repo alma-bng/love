@@ -289,4 +289,28 @@ function releaseHands() {
   }
 }
 
+function floatingElements() {
+  const emojis = ["💖","💍","🥹","💋","🤝"];
+  for (let i = 0; i < 10; i++) {
+    const span = document.createElement("span");
+    span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    span.style.position = "fixed";
+    span.style.left = Math.random()*100 + "vw";
+    span.style.top = Math.random()*100 + "vh";
+    span.style.fontSize = Math.random()*20 + 20 + "px";
+    span.style.opacity = 0.7;
+    document.body.appendChild(span);
+
+    span.animate(
+      [
+        { transform: `translateY(0px)`, opacity: 0.7 },
+        { transform: `translateY(-200px)`, opacity: 0 }
+      ],
+      { duration: 10000 + Math.random()*5000, iterations: Infinity }
+    );
+  }
+}
+
+floatingElements();
+
 
