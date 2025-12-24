@@ -67,7 +67,24 @@
                 <button onclick="goBack(event)">← Back</button>
             </section>
         </div>
+  <div class="card" onclick="openSection('time')">
+  <h3>Our Time 🕯️</h3>
 
+  <section id="time" class="content hidden time-page">
+    <p class="time-title">We’ve been choosing each other for</p>
+
+    <div id="big-days">
+      <span id="days"></span>
+      <small>days</small>
+    </div>
+
+    <p class="time-sub">
+      and I would still choose you in every lifetime 💖
+    </p>
+
+    <button onclick="goBack(event)">← Back</button>
+  </section>
+</div>
         <div class="card" onclick="openSection('memories')">
             <h3>Favorite Days</h3>
             <section id="memories" class="content hidden">
@@ -130,24 +147,7 @@
     </p>
     <button onclick="closeLetter()">Close 💗</button>
   </div></div>
-  <div class="card" onclick="openSection('time')">
-  <h3>Our Time 🕯️</h3>
-
-  <section id="time" class="content hidden time-page">
-    <p class="time-title">We’ve been choosing each other for</p>
-
-    <div id="big-days">
-      <span id="days"></span>
-      <small>days</small>
-    </div>
-
-    <p class="time-sub">
-      and I would still choose you in every lifetime 💖
-    </p>
-
-    <button onclick="goBack(event)">← Back</button>
-  </section>
-</div>
+  
 
 
         <div class="card" onclick="openSection('pictures')">
@@ -173,6 +173,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
