@@ -231,3 +231,4 @@ updateCounter();
 setTimeout(() => {
   alert("Still here? Good. I’m never leaving 💖");
 }, 60000);
+
