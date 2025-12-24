@@ -1,234 +1,80 @@
-/* =====================
-   MAGIC WORD GATE
-===================== */
 const MAGIC_WORD = "love";
 
-document.getElementById("magic-word").addEventListener("keypress", function (e) {
-  if (e.key === "Enter") enterSite();
-});
-
+/* ---------------- GATE ---------------- */
 function enterSite() {
-  const input = document.getElementById("magic-word");
-  const value = input.value.trim().toLowerCase();
+  const value = document.getElementById("magic-word").value.toLowerCase();
   const error = document.getElementById("gate-error");
 
-  if (value === MAGIC_WORD) {
-    document.getElementById("gate").style.display = "none";
-    document.getElementById("main-content").classList.remove("hidden");
-
-    releaseHearts();
-    openScrollLetter(); // 💌 Scroll letter opens immediately
-  } else {
+  if (value !== MAGIC_WORD) {
     error.classList.remove("hidden");
-    input.style.animation = "shake 0.4s";
-    setTimeout(() => (input.style.animation = ""), 400);
-  }
-}
-
-/* =====================
-   HEARTS (FULL PAGE)
-===================== */
-function releaseHearts() {
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement("div");
-    heart.innerText = ["💖", "💗", "💕", "💞"][Math.floor(Math.random() * 4)];
-    const xMove = Math.random() * 300 - 150;
-    const yMove = Math.random() * 300 - 150;
-
-    heart.style.position = "fixed";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    heart.style.fontSize = Math.random() * 20 + 18 + "px";
-
-    heart.animate(
-      [
-        { transform: "translate(0,0)", opacity: 0 },
-        { opacity: 1 },
-        { transform: `translate(${xMove}px, ${yMove}px)`, opacity: 0 }
-      ],
-      { duration: 6000, easing: "ease-in-out" }
-    );
-
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }
-}
-
-/* =====================
-   CARD NAVIGATION
-===================== */
-let memoriesOpened = false;
-
-function openSection(id) {
-  if (id === "proposal" && !memoriesOpened) {
-    alert("Unlock our memories first 💕");
     return;
   }
-  document.querySelectorAll(".content").forEach(sec => sec.classList.add("hidden"));
+
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("main-content").classList.remove("hidden");
+
+  // wait for DOM paint
+  setTimeout(openScrollLetter, 300);
+}
+
+/* ---------------- NAV ---------------- */
+function openSection(id) {
+  document.querySelectorAll(".content").forEach(c => c.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
-
-  if (id === "memories") memoriesOpened = true;
 }
 
-function goBack(event) {
-  event.stopPropagation();
-  event.target.closest(".content").classList.add("hidden");
+function goBack(e) {
+  e.stopPropagation();
+  e.target.closest(".content").classList.add("hidden");
 }
 
-/* =====================
-   PROPOSAL
-===================== */
-function sayYes() {
-  document.getElementById("yes-message").classList.remove("hidden");
-  document.getElementById("kiss").classList.remove("hidden");
-
-  fadeInMusic(document.getElementById("love-music"));
-  loveExplosion();
-
-  setTimeout(openProposalLetter, 1500); // Proposal love letter opens
-}
-
-function runAway(button) {
-  const phrases = ["TRY AGAIN 😌", "NOT TODAY 🙄", "WRONG ANSWER", "BE SERIOUS 😭", "YOU MEAN YES"];
-  button.innerText = phrases[Math.floor(Math.random() * phrases.length)];
-
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 200 - 100;
-  button.style.transform = `translate(${x}px, ${y}px)`;
-}
-
-/* =====================
-   LOVE EXPLOSION
-===================== */
-function loveExplosion() {
-  for (let i = 0; i < 30; i++) {
-    const emoji = document.createElement("span");
-    emoji.innerText = ["💖", "💍", "🥹", "💋"][Math.floor(Math.random() * 4)];
-    emoji.style.position = "fixed";
-    emoji.style.left = "50%";
-    emoji.style.top = "50%";
-    emoji.style.fontSize = "24px";
-
-    document.body.appendChild(emoji);
-
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 200 + 50;
-
-    emoji.animate(
-      [
-        { transform: "translate(0,0)", opacity: 1 },
-        { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0 }
-      ],
-      { duration: 1200 }
-    );
-
-    setTimeout(() => emoji.remove(), 1200);
-  }
-}
-
-/* =====================
-   LOVE LETTERS
-===================== */
-// Proposal letter
-function openProposalLetter() {
-  document.getElementById("love-letter-proposal").classList.remove("hidden");
-}
-
-function closeProposalLetter() {
-  document.getElementById("love-letter-proposal").classList.add("hidden");
-}
-
-// Scroll letter (opens immediately after gate)
+/* ---------------- SCROLL LETTER ---------------- */
 function openScrollLetter() {
-  const overlay = document.getElementById("love-letter-scroll");
+  const overlay = document.getElementById("scroll-letter");
   const scroll = overlay.querySelector(".scroll");
+
   overlay.classList.remove("hidden");
-  scroll.style.animation = "openScroll 1s forwards";
+
+  scroll.style.animation = "none";
+  scroll.offsetHeight; // force repaint
+  scroll.style.animation = "openScroll 1s ease forwards";
 }
 
 function closeScrollLetter() {
-  const overlay = document.getElementById("love-letter-scroll");
+  const overlay = document.getElementById("scroll-letter");
   const scroll = overlay.querySelector(".scroll");
-  scroll.classList.add("close");
 
-  scroll.addEventListener("animationend", function handler() {
-    overlay.classList.add("hidden");
-    scroll.classList.remove("close");
-    scroll.style.animation = "";
-    scroll.removeEventListener("animationend", handler);
-  });
+  scroll.style.animation = "closeScroll 0.8s ease forwards";
+
+  scroll.addEventListener(
+    "animationend",
+    () => overlay.classList.add("hidden"),
+    { once: true }
+  );
 }
 
-document.getElementById("close-scroll-btn").addEventListener("click", closeScrollLetter);
+/* ---------------- PROPOSAL ---------------- */
+function sayYes() {
+  document.getElementById("yes-message").classList.remove("hidden");
 
-/* =====================
-   IMAGE FULLSCREEN
-===================== */
-document.querySelectorAll(".card img").forEach(img => {
-  img.addEventListener("click", e => {
-    e.stopPropagation();
-    const overlay = document.createElement("div");
-    overlay.style.cssText = `position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:999;`;
-    const bigImg = document.createElement("img");
-    bigImg.src = img.src;
-    bigImg.style.maxWidth = "90%";
-    bigImg.style.maxHeight = "90%";
-    bigImg.style.borderRadius = "20px";
-    overlay.appendChild(bigImg);
-    document.body.appendChild(overlay);
-    overlay.onclick = () => overlay.remove();
-  });
-});
+  const music = document.getElementById("love-music");
+  music.volume = 0.8;
+  music.play();
 
-/* =====================
-   MUSIC FADE IN
-===================== */
-function fadeInMusic(audio) {
-  audio.volume = 0;
-  audio.play();
-  let vol = 0;
-  const fade = setInterval(() => {
-    if (vol < 0.8) {
-      vol += 0.02;
-      audio.volume = vol;
-    } else {
-      clearInterval(fade);
-    }
-  }, 100);
+  setTimeout(() => {
+    document.getElementById("proposal-letter").classList.remove("hidden");
+  }, 700);
 }
 
-/* =====================
-   LOVE COUNTER
-===================== */
+function closeProposalLetter() {
+  document.getElementById("proposal-letter").classList.add("hidden");
+}
+
+function runAway(btn) {
+  btn.style.transform = `translate(${Math.random()*120}px, ${Math.random()*120}px)`;
+}
+
+/* ---------------- TIME ---------------- */
 const startDate = new Date("2023-12-19");
-function updateCounter() {
-  const now = new Date();
-  const diffTime = now - startDate;
-  const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  document.getElementById("days").innerText = days;
-
-  let years = now.getFullYear() - startDate.getFullYear();
-  let months = now.getMonth() - startDate.getMonth();
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
-  document.getElementById("years").innerText = years;
-  document.getElementById("months").innerText = months;
-
-  const isAnniversary = now.getDate() === startDate.getDate() && now.getMonth() === startDate.getMonth();
-  const message = document.getElementById("anniversary-message");
-  if (isAnniversary) {
-    message.classList.remove("hidden");
-    message.innerText = years === 1 ? "Happy 1 Year Anniversary, my love 💍💖" : `Happy ${years} Year Anniversary, forever with you 💖💍`;
-  }
-}
-updateCounter();
-
-/* =====================
-   SECRET MESSAGE
-===================== */
-setTimeout(() => {
-  alert("Still here? Good. I’m never leaving 💖");
-}, 60000);
-
+document.getElementById("days").innerText =
+  Math.floor((new Date() - startDate) / 86400000);
