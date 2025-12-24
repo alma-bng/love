@@ -68,19 +68,6 @@ function runAway(button) {
 
   button.style.transform = `translate(${x}px, ${y}px)`;
 }
-function releaseHearts() {
-  for (let i = 0; i < 20; i++) {
-    const heart = document.createElement("div");
-    heart.innerText = "💖";
-    heart.style.position = "fixed";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = "-20px";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
-    heart.style.animation = "floatUp 4s ease-in forwards";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 4000);
-  }
 }function enterSite() {
   const input = document.getElementById("magic-word");
   const value = input.value.trim().toLowerCase();
@@ -211,6 +198,7 @@ document.querySelectorAll(".card img").forEach(img => {
     overlay.onclick = () => overlay.remove();
   });
 });
+
 
 
 
