@@ -309,16 +309,21 @@ function floatingElements() {
       { duration: 10000 + Math.random()*5000, iterations: Infinity }
     );
   }
-}
-
-floatingElements();
-function openLetter() {
-  document.getElementById("love-letter").classList.remove("hidden");
-}
 
 function closeLetter() {
-  document.getElementById("love-letter").classList.add("hidden");
+  const scroll = document.querySelector("#love-letter .scroll");
+  scroll.classList.add("close"); // start closing animation
+
+  // wait for animation to finish before hiding
+  scroll.addEventListener("animationend", function handler() {
+    document.getElementById("love-letter").classList.add("hidden");
+    scroll.classList.remove("close"); // reset for next time
+    scroll.removeEventListener("animationend", handler);
+  });
 }
+
+
+
 
 
 
