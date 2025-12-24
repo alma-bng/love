@@ -280,4 +280,35 @@ body {
 }
 
 
+.time-page {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.time-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: #6b3f4a;
+}
+
+#big-days {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: #3a1f28;
+  margin: 1rem 0;
+}
+
+#big-days small {
+  font-size: 1.2rem;
+  margin-left: 0.4rem;
+  color: #7a4b58;
+}
+
+.time-sub {
+  font-size: 0.95rem;
+  max-width: 320px;
+  margin: 0 auto;
+  color: #5a3b43;
+}
+
 
