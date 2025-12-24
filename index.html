@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>I LOVE THIS GUY</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -22,9 +19,39 @@
   </div>
 </div>
 
+<!-- ================= SCROLL LETTER ================= -->
+<div id="scroll-letter" class="overlay hidden">
+  <div class="scroll">
+    <h2>To My Favorite Person 💖</h2>
+    <p>
+      From the moment this page opened, I wanted you to feel it —
+      how deeply you are loved, chosen, and treasured.
+    </p>
+    <p>
+      This is me choosing you, softly, intentionally, always.
+    </p>
+    <button onclick="closeScrollLetter()">Close 💌</button>
+  </div>
+</div>
+
+<!-- ================= PROPOSAL LETTER ================= -->
+<div id="proposal-letter" class="overlay hidden">
+  <div class="letter-box">
+    <h2>My Love 💖</h2>
+    <p>
+      I didn’t write this in a rush.
+      I wrote it with certainty.
+
+      Loving you feels like home.
+      And if I had to choose again —
+      I would choose you every single time.
+    </p>
+    <button onclick="closeProposalLetter()">Close 💗</button>
+  </div>
+</div>
+
 <!-- ================= MAIN CONTENT ================= -->
 <div id="main-content" class="hidden">
-
   <h2>IMRAN</h2>
   <p>IMRAN IS THE MOST BEAUTIFUL AND MOST KIND HEARTED BABES IN THE WHOLE WORLD</p>
 
@@ -97,8 +124,14 @@
       <h4>Proposal 💍</h4>
       <section id="proposal" class="content hidden">
         <p>WOULD YOU GO ON INFINITE DATES WITH ME?</p>
-
         <button onclick="sayYes()">YES 💖</button>
         <button onmouseover="runAway(this)">NO 🙄</button>
-
         <div id="yes-message" class="hidden">YAYYYYY 🥹💚</div>
+      </section>
+    </div>
+
+  </section>
+</div>
+
+<script src="script.js"defer></script></body></html>
+ 
