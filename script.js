@@ -98,19 +98,24 @@ function releaseHearts() {
   }
 }
 function releaseHearts() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 25; i++) {
     const heart = document.createElement("div");
-    heart.innerText = "💖";
+    heart.innerText = ["💖", "💗", "💕", "💞"][Math.floor(Math.random() * 4)];
+
     heart.style.position = "fixed";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = "-20px";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
-    heart.style.animation = "floatUp 4s ease-in forwards";
+    heart.style.top = Math.random() * 100 + "vh"; // 🔥 anywhere on page
+    heart.style.fontSize = Math.random() * 20 + 16 + "px";
+    heart.style.opacity = Math.random();
+
+    heart.style.animation = "floatAround 6s ease-in-out forwards";
+
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 4000);
+    setTimeout(() => heart.remove(), 6000);
   }
 }
+
 function loveExplosion() {
   for (let i = 0; i < 30; i++) {
     const emoji = document.createElement("span");
@@ -206,6 +211,7 @@ document.querySelectorAll(".card img").forEach(img => {
     overlay.onclick = () => overlay.remove();
   });
 });
+
 
 
 
