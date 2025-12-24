@@ -310,17 +310,32 @@ function floatingElements() {
     );
   }
 
-function closeLetter() {
-  const scroll = document.querySelector("#love-letter .scroll");
-  scroll.classList.add("close"); // start closing animation
+function openLetter() {
+  const overlay = document.getElementById("love-letter");
+  const scroll = overlay.querySelector(".scroll");
 
-  // wait for animation to finish before hiding
+  overlay.classList.remove("hidden");
+  scroll.style.animation = "openScroll 1s forwards";
+}
+
+function closeLetter() {
+  const overlay = document.getElementById("love-letter");
+  const scroll = overlay.querySelector(".scroll");
+
+  scroll.classList.add("close");
+
   scroll.addEventListener("animationend", function handler() {
-    document.getElementById("love-letter").classList.add("hidden");
-    scroll.classList.remove("close"); // reset for next time
+    overlay.classList.add("hidden");
+    scroll.classList.remove("close");
+    scroll.style.animation = ""; // reset
     scroll.removeEventListener("animationend", handler);
   });
 }
+
+// Attach close button event (if not using inline onclick)
+document.getElementById("close-letter-btn").addEventListener("click", closeLetter);
+
+
 
 
 
