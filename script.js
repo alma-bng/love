@@ -312,5 +312,13 @@ function floatingElements() {
 }
 
 floatingElements();
+function openLetter() {
+  document.getElementById("love-letter").classList.remove("hidden");
+}
+
+function closeLetter() {
+  document.getElementById("love-letter").classList.add("hidden");
+}
+
 
 
