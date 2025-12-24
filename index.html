@@ -1,178 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I LOVE THIS GUY</title>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>I LOVE THIS GUY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- GATE -->
-<div id="gate">
+ <div id="gate">
   <div class="gate-content">
     <h1>For My Favorite Person 💌</h1>
     <p>Enter the magic word to unlock my heart</p>
-    <input type="password" id="magic-word" placeholder="✨ magic word ✨">
+
+    <input
+      type="password"
+      id="magic-word"
+      placeholder="✨ magic word ✨"
+    />
+
     <p id="gate-error" class="hidden">That’s not our word 💔</p>
+
     <button onclick="enterSite()">Enter 💗</button>
   </div>
-</div>
+</div><div id="main-content" class="hidden">
 
-<!-- MAIN CONTENT -->
-<div id="main-content" class="hidden">
 
-  <h2>IMRAN</h2>
-  <p>IMRAN IS THE MOST BEAUTIFUL AND MOST KIND-HEARTED BABES IN THE WHOLE WORLD</p>
+    <h2>IMRAN</h2>
+    <p>IMRAN IS THE MOST BEAUTIFUL AND MOST KIND HEARTED BABES IN THE WHOLE WORLD</p>
 
-  <!-- NAV CARDS -->
-  <section class="nav-cards">
-
-    <!-- Likes -->
-    <div class="card" onclick="openSection('likes')">
-      <h2>Likes</h2>
-      <section id="likes" class="content hidden">
-        <ul>
-          <li>Intimidated by me 🤏🏻</li>
-          <li>Really tolerant</li>
-          <li>Family guy</li>
-          <li>Generous</li>
-          <li>Best smex appeal</li>
-          <li>Funny</li>
-          <li>Masculine (rare)</li>
-          <li>Handsome</li>
-          <li>Sexy</li>
-          <li>Good smex</li>
-          <li>Religious</li>
-          <li>Golden retriever</li>
-        </ul>
-        <button onclick="goBack(event)">← Back</button>
-      </section>
-    </div>
-
-    <!-- Intentions -->
-    <div class="card" onclick="openSection('intentions')">
-      <h2>My Intentions</h2>
-      <section id="intentions" class="content hidden">
-        <ul>
-          <li>Be loving</li>
-          <li>Achieve everything together</li>
-          <li>BMW on his 30th birthday</li>
-          <li>Make him feel special</li>
-          <li>3–4 babies max</li>
-          <li>A home he longs for</li>
-        </ul>
-        <button onclick="goBack(event)">← Back</button>
-      </section>
-    </div>
-
-    <!-- Our Time -->
-    <div class="card" onclick="openSection('time')">
-      <h3>Our Time 🕯️</h3>
-      <section id="time" class="content hidden time-page">
-        <p class="time-title">We’ve been choosing each other for</p>
-        <div id="big-days">
-          <span id="days"></span>
-          <small>days</small>
-        </div>
-        <p class="time-sub">and I would still choose you in every lifetime 💖</p>
-        <button onclick="goBack(event)">← Back</button>
-      </section>
-    </div>
-
-    <!-- Memories -->
-    <div class="card" onclick="openSection('memories')">
-      <h3>Favorite Days</h3>
-      <section id="memories" class="content hidden">
-        <ul>
-          <li>Calling each other mrembo & Tausi</li>
-          <li>Life separating us</li>
-          <li>Meeting again after 5 years</li>
-          <li>First proper date</li>
-          <li>First picnic</li>
-          <li>First kiss</li>
-          <li>December 19 🌹</li>
-          <li>So many more memories to come</li>
-        </ul>
-        <button onclick="goBack(event)">← Back</button>
-      </section>
-    </div>
-
-    <!-- Pictures -->
-    <div class="card" onclick="openSection('pictures')">
-      <h5>Favorite Pictures 💋</h5>
-      <section id="pictures" class="content hidden">
-        <ul>
-          <li><img src="first-date.jpeg" alt="First Date"></li>
-          <li><img src="first-day.jpeg" alt="First Day"></li>
-          <li><img src="picnic.jpeg" alt="Picnic"></li>
-          <li><img src="dini1.jpeg" alt="Dini 1"></li>
-          <li><img src="2.jpeg" alt="Picture 2"></li>
-        </ul>
-        <button onclick="goBack(event)">← Close</button>
-      </section>
-    </div>
-
-    <!-- Proposal -->
-    <div class="card" onclick="openSection('proposal')">
-      <h4>Proposal 💍</h4>
-      <section id="proposal" class="content hidden">
-        <p>WOULD YOU GO ON INFINITE DATES WITH ME?</p>
-
-        <div class="proposal-buttons">
-          <button class="yes-btn" onclick="sayYes()">YES 💖</button>
-          <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
+    <section class="nav-cards">
+        <div class="card" onclick="openSection('likes')">
+            <h2>likes</h2>
+            <section id="likes" class="content hidden">
+                <ul>
+                    <li> Intimidated by me🤏🏻<li>
+                    <li>really tolerant</li>
+                    <li>family guy</li>
+                    <li>generous</li>
+                    <li>has the best smex appeal</li>
+                    <li>funny</li>
+                    <li>masculine which is rare</li>
+                    <li>have I said HANDSOME?</li>
+                    <li>have I said SEXY?</li>
+                    <li>have I added "good smex"?</li>
+                    <li>anyway he is the BEST</li>
+                    <li>Religious</li>
+                    <li>Golden retriever</li>
+                </ul>
+                <button onclick="goBack(event)">← Back</button>
+            </section>
         </div>
 
-        <div id="yes-message" class="hidden">YAYYYYY 🥹💚</div>
-        <div id="kiss" class="hidden">💋</div>
+        <div class="card" onclick="openSection('intentions')">
+            <h2>My Intentions</h2>
+            <section id="intentions" class="content hidden">
+                <ul>
+                    <li>Be loving</li>
+                    <li>Achieve everything with him</li>
+                    <li>Buy him a BMW on his 30th birthday</li>
+                    <li>Make him feel special</li>
+                    <li>Bore him babies (3 or 4), not more than that</li>
+                    <li>Make him a home that he longs to come back to</li>
+                </ul>
+                <button onclick="goBack(event)">← Back</button>
+            </section>
+        </div>
+  <div class="card" onclick="openSection('time')">
+  <h3>Our Time 🕯️</h3>
 
-        <audio id="love-music">
-          <source src="bloom.mp3" type="audio/mpeg">
-        </audio>
-      </section>
+  <section id="time" class="content hidden time-page">
+    <p class="time-title">We’ve been choosing each other for</p>
+
+    <div id="big-days">
+      <span id="days"></span>
+      <small>days</small>
     </div>
 
+    <p class="time-sub">
+      and I would still choose you in every lifetime 💖
+    </p>
+
+    <button onclick="goBack(event)">← Back</button>
   </section>
 </div>
+        <div class="card" onclick="openSection('memories')">
+            <h3>Favorite Days</h3>
+            <section id="memories" class="content hidden">
+                <ul>
+                    <li>The days we used to call each other names like mrembo and Tausi, just us, before everything became serious.</li>
+                    <li>Finishing primary school, then life separating us for years.</li>
+                    <li>Meeting again after about five years — no longer kids, but still familiar.</li>
+                    <li>Our first proper meeting after reconnecting.</li>
+                    <li>The first real date we went on together.</li>
+                    <li>The first special date that felt different from all the others.</li>
+                    <li>The first time we went on a picnic.</li>
+                    <li>The first day we kissed.</li>
+                    <li>December 19, the day I accepted flowers from you, our favorite day.</li>
+                    <li>The first time I went to your house.</li>
+                    <li>The first time you cooked for me.</li>
+                    <li>The first time I cooked for you.</li>
+                    <li>The first time you made my favorite thing without even knowing it was my favorite: white roses.</li>
+                    <li>Dining at crazy expensive restaurants while we were still university kids, with a little help from our parents.</li>
+                    <li>Our first time going ziplining together.</li>
+                    <li>Our first time going skating together.</li>
+                    <li>The moments you always stood up for me, protected me, and chose me.</li>
+                    <li>And many more memories we’re still creating.</li>
+                </ul>
+                <button onclick="goBack(event)">← Back</button>
+            </section></div><div class="card" onclick="openSection('pictures')">
+  <h5>favorite pictures 💋</h5>
 
-<!-- Proposal Letter -->
-<div id="proposal-letter" class="hidden">
+  <section id="pictures" class="content hidden">
+    <ul>
+      <li><img src="first date.jpeg" alt="First Date" /></li>
+      <li><img src="first day.jpeg" alt="First Day" /></li>
+      <li><img src="picnic.jpeg" alt="Picnic" /></li>
+      <li><img src="dini1.jpeg" alt="1" /></li>
+      <li><img src="2.jpeg" alt="2" /></li>
+      <li><img src="3.jpeg" alt="3" /></li>
+      <li><img src="5.jpeg" alt="5" /></li>
+      <li><img src="6.jpeg" alt="6" /></li>
+      <li><img src="7.jpeg" alt="7" /></li>
+    </ul>
+
+    <button onclick="goBack(event)">← Close</button>
+  </section>
+</div>
+</section></div>
+        <div class="card" onclick="openSection('proposal')">
+  <h4>PROPOSAL</h4>
+  <section id="proposal" class="content hidden">
+    <p>WOULD YOU GO ON INFINITE DATES WITH ME? 💍</p>
+
+<div class="proposal-buttons">
+  <button class="yes-btn" onclick="sayYes()">YES 💖</button>
+  <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
+</div>
+
+<!-- YES message -->
+<div id="yes-message" class="hidden">
+  YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
+</div>
+
+<!-- Kiss -->
+<div id="kiss" class="hidden">
+  💋
+</div>
+
+<!-- Love song -->
+<audio id="love-music" preload="auto" playsinline>
+  <source src="bloom.mp3" type="audio/mpeg">
+</audio>
+
+
+  </section></div><div id="love-letter-PROPOSAL" class="hidden">
   <div class="letter-box">
     <h2>My Love 💖</h2>
     <p>
-      I didn’t write this in a rush.
-      I wrote it with certainty.
+      I made this for you, quietly, with intention.
 
-      You are my calm, my laughter, my safe place.
-      Loving you feels like home.
+Not because I had to,
+but because you crossed my mind in the gentlest moments — the ones that don’t ask for attention, only honesty.
 
-      And if I had to choose again —
-      I would choose you every single time.
+There’s something about you that feels familiar in a way I can’t explain. The way time softens around you. The way I feel more myself without trying. I don’t love loudly — I love intentionally. And when I choose, I choose fully.
+
+I love the version of you that exists when no one is watching. The calm. The laughter. The depth you don’t always show. The way you live in my thoughts without asking to be there.
+
+This isn’t a promise born from excitement.
+It’s a feeling grounded in presence, in quiet certainty.
+
+If you ever wondered how I feel — this is it.
+Soft. Honest. Real. And meant for you.
+
+Always,
+🤍 LASTLY I WILL ALWAYS CHOOSE YOU💍
     </p>
-    <button onclick="closeProposalLetter()">Close 💗</button>
-  </div>
-</div>
-
-<!-- Scroll Letter -->
-<div id="scroll-letter" class="hidden">
+    <button onclick="closeLetter()">Close 💗</button>
+  </div></div>
+  <div id="love-letter-SCROLL" class="hidden">
   <div class="scroll">
     <div class="scroll-content">
       <h2>To My Favorite Person 💖</h2>
       <p>
-        From the moment this page opened, I wanted you to feel it —
-        how deeply you are loved, chosen, and treasured.
+        Every moment with you is a treasure. 
+        I love the way you make my heart smile and how we grow together.
+        You are my forever, my everything.
       </p>
       <p>
-        This is me choosing you, softly, intentionally, always.
+        With all my love,<br>
+        <strong>Me 💌</strong>
       </p>
-      <button onclick="closeScrollLetter()">Close 💌</button>
-    </div>
+<button id="close-letter-btn">Close 💌</button>
   </div>
 </div>
-
-<script src="script.js"></script>
+</section></div>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+fix this html fully
