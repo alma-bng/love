@@ -325,5 +325,21 @@ body {
   margin-top: 1.2rem;
   animation: fadeIn 1s ease;
 }
+body {
+  background: linear-gradient(120deg, #f9d5e5, #fde2e2, #e2f0cb, #c9f0f0);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+.card:hover {
+  box-shadow: 0 30px 50px rgba(255, 192, 203, 0.3), 0 0 20px rgba(255, 182, 193, 0.5) inset;
+  transform: translateY(-6px) scale(1.02);
+}
+
 
 
