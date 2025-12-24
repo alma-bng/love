@@ -215,17 +215,46 @@ function fadeInMusic(audio) {
 /* =====================
    LOVE COUNTER
 ===================== */
-
 const startDate = new Date("2023-12-19");
 
 function updateCounter() {
   const now = new Date();
-  const diff = now - startDate;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  // Days together
+  const diffTime = now - startDate;
+  const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   document.getElementById("days").innerText = days;
+
+  // Years & months
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  document.getElementById("years").innerText = years;
+  document.getElementById("months").innerText = months;
+
+  // 🎉 Anniversary check
+  const isAnniversary =
+    now.getDate() === startDate.getDate() &&
+    now.getMonth() === startDate.getMonth();
+
+  const message = document.getElementById("anniversary-message");
+
+  if (isAnniversary) {
+    message.classList.remove("hidden");
+    message.innerText =
+      years === 1
+        ? "Happy 1 Year Anniversary, my love 💍💖"
+        : `Happy ${years} Year Anniversary, forever with you 💖💍`;
+  }
 }
 
 updateCounter();
+
 
 /* =====================
    SECRET MESSAGE
@@ -259,4 +288,5 @@ function releaseHands() {
     setTimeout(() => hand.remove(), 6000);
   }
 }
+
 
