@@ -46,17 +46,21 @@ function goBack(event) {
 /* =====================
    PROPOSAL LOGIC
 ===================== */
-
 function sayYes() {
   document.getElementById("yes-message").classList.remove("hidden");
   document.getElementById("kiss").classList.remove("hidden");
 
   const music = document.getElementById("love-music");
   music.volume = 0.8;
-  music.play().catch(() => {
-    console.log("Autoplay blocked — user interaction required");
-  });
+  music.play();
+
+  loveExplosion();
+
+  setTimeout(() => {
+    openLetter();
+  }, 1500);
 }
+
 
 function runAway(button) {
   const x = Math.random() * 200 - 100;
@@ -151,5 +155,57 @@ function runAway(button) {
 
   button.style.transform = `translate(${x}px, ${y}px)`;
 }
+function openLetter() {
+  document.getElementById("love-letter").classList.remove("hidden");
+}
+
+function closeLetter() {
+  document.getElementById("love-letter").classList.add("hidden");
+}
+let memoriesOpened = false;
+
+function openSection(id) {
+  if (id === "proposal" && !memoriesOpened) {
+    alert("You have to unlock our memories first 💕");
+    return;
+  }
+
+  document.querySelectorAll(".content").forEach(sec => {
+    sec.classList.add("hidden");
+  });
+
+  const section = document.getElementById(id);
+  section.classList.remove("hidden");
+
+  if (id === "memories") {
+    memoriesOpened = true;
+  }
+}
+document.querySelectorAll(".card img").forEach(img => {
+  img.addEventListener("click", e => {
+    e.stopPropagation();
+
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.inset = "0";
+    overlay.style.background = "rgba(0,0,0,0.8)";
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
+    overlay.style.zIndex = "300";
+
+    const bigImg = document.createElement("img");
+    bigImg.src = img.src;
+    bigImg.style.maxWidth = "90%";
+    bigImg.style.maxHeight = "90%";
+    bigImg.style.borderRadius = "20px";
+
+    overlay.appendChild(bigImg);
+    document.body.appendChild(overlay);
+
+    overlay.onclick = () => overlay.remove();
+  });
+});
+
 
 
