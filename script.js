@@ -149,4 +149,40 @@ const startDate = new Date("2023-12-19");
 const daysEl = document.getElementById("days");
 if (daysEl) {
   daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
+}function sayYes() {
+  // Show YAY message & hearts
+  document.getElementById("yes-message").classList.remove("hidden");
+  document.getElementById("kiss").classList.remove("hidden");
+  explodeLove();
+
+  // Play music
+  const music = document.getElementById("love-music");
+  if (music) {
+    music.volume = 0.8;
+    music.currentTime = 0;
+    music.play();
+  }
+
+  // Show "Tap to unlock your surprise" overlay after YES
+  setTimeout(() => {
+    document.getElementById("unlock-overlay").classList.remove("hidden");
+  }, 800); // slight delay for drama
 }
+
+// Unlock the proposal letter
+function unlockProposal() {
+  document.getElementById("unlock-overlay").classList.add("hidden"); // hide overlay
+  explodeLove();
+
+  // Show the actual proposal letter
+  setTimeout(() => {
+    document.getElementById("love-letter-PROPOSAL").classList.remove("hidden");
+  }, 300);
+}
+
+// Close proposal letter
+function closeLetter() {
+  document.getElementById("love-letter-PROPOSAL").classList.add("hidden");
+}
+
+
