@@ -110,3 +110,48 @@ const daysEl = document.getElementById("days");
 if (daysEl) {
   daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
 }
+
+const MAGIC_WORD = "love";
+let memoriesOpened = false;
+
+function explodeLove() {
+  const hearts = ["💖","💘","💝","💗","💓","❤️"];
+  for (let i = 0; i < 60; i++) {
+    const heart = document.createElement("span");
+    heart.className = "love-heart";
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+    heart.style.fontSize = 16 + Math.random() * 24 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2500);
+  }
+}
+
+/* =========================
+   GATE
+========================= */
+function enterSite() {
+  const input = document.getElementById("magic-word");
+  const error = document.getElementById("gate-error");
+
+  if (input.value.toLowerCase() !== MAGIC_WORD) {
+    error.classList.remove("hidden");
+    return;
+  }
+
+  error.classList.add("hidden");
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("main-content").classList.remove("hidden");
+
+  // Hearts explosion
+  explodeLove();
+
+  // Show scroll letter
+  const scrollLetter = document.getElementById("love-letter-SCROLL");
+  scrollLetter.classList.add("show");  // IMPORTANT: use .show
+}
+
+function closeScrollLetter() {
+  document.getElementById("love-letter-SCROLL").classList.remove("show");
+}
