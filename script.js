@@ -168,5 +168,16 @@ document.addEventListener("click", e => {
 
 function closeImage() {
   document.getElementById("image-viewer").classList.add("hidden");
+}document.addEventListener("click", e => {
+  if (e.target.closest(".gallery img")) {
+    document.getElementById("viewer-img").src = e.target.src;
+    document.getElementById("image-viewer").classList.remove("hidden");
+  }
+});
+
+function closeImage() {
+  document.getElementById("image-viewer").classList.add("hidden");
 }
+
+
 
