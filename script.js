@@ -1,11 +1,37 @@
 const MAGIC_WORD = "love";
 
-/* ================= GATE ================= */
+/* =========================
+   STATE CONTROL
+========================= */
+let memoriesOpened = false;
+
+/* =========================
+   LOVE EXPLOSION (ALL AROUND)
+========================= */
+function explodeLove() {
+  const hearts = ["💖","💘","💝","💗","💓","❤️"];
+  for (let i = 0; i < 60; i++) {
+    const heart = document.createElement("span");
+    heart.className = "love-heart";
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+    heart.style.fontSize = 16 + Math.random() * 24 + "px";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2500);
+  }
+}
+
+/* =========================
+   GATE
+========================= */
 function enterSite() {
-  const value = document.getElementById("magic-word").value.toLowerCase();
+  const input = document.getElementById("magic-word");
   const error = document.getElementById("gate-error");
 
-  if (value !== MAGIC_WORD) {
+  if (input.value.toLowerCase() !== MAGIC_WORD) {
     error.classList.remove("hidden");
     return;
   }
@@ -15,57 +41,112 @@ function enterSite() {
   document.getElementById("main-content").classList.remove("hidden");
 
   explodeLove();
-  openScrollLetter();
+
+  setTimeout(() => {
+    document.getElementById("love-letter-SCROLL").classList.remove("hidden");
+  }, 400);
 }
 
-/* ================= LOVE EXPLOSION ================= */
-function explodeLove() {
-  for (let i = 0; i < 40; i++) {
-    const heart = document.createElement("div");
-    heart.className = "love-heart";
-    heart.textContent = "💖";
-
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
-
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
-  }
-}
-
-/* ================= SCROLL LETTER ================= */
-function openScrollLetter() {
-  document.getElementById("love-letter-SCROLL")?.classList.add("show");
-}
-
+/* =========================
+   SCROLL LETTER
+========================= */
 function closeScrollLetter() {
-  document.getElementById("love-letter-SCROLL")?.classList.remove("show");
+  document.getElementById("love-letter-SCROLL").classList.add("hidden");
 }
 
-/* ================= PROPOSAL ================= */
-function sayYes() {
-  document.getElementById("yes-message").classList.remove("hidden");
-
-  const music = document.getElementById("love-music");
-  if (music) {
-    music.volume = 0.8;
-    music.play();
+/* =========================
+   SECTIONS
+========================= */
+function openSection(id) {
+  // LOCK proposal until memories opened
+  if (id === "proposal" && !memoriesOpened) {
+    alert("Open Favorite Days first 💌");
+    return;
   }
+
+  document.querySelectorAll(".content").forEach(c => c.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+
+  if (id === "memories") memoriesOpened = true;
+}
+
+function goBack(e) {
+  e.stopPropagation();
+  e.target.closest(".content").classList.add("hidden");
+}
+
+/* =========================
+   PROPOSAL FLOW
+========================= */
+function sayYes() {
+  // YAY MESSAGE
+  document.getElementById("yes-message").classList.remove("hidden");
+  document.getElementById("kiss").classList.remove("hidden");
+
+  // MUSIC
+  const music = document.getElementById("love-music");
+  music.currentTime = 0;
+  music.volume = 0.8;
+  music.play();
 
   explodeLove();
 
-  // unlock + show proposal letter
+  // LOCKED SURPRISE
   setTimeout(() => {
-    document.getElementById("proposal-letter").classList.add("show");
-  }, 600);
+    document.getElementById("unlock-overlay").style.display = "flex";
+  }, 1600);
 }
 
-function closeProposal() {
-  document.getElementById("proposal-letter").classList.remove("show");
+function unlockProposal() {
+  document.getElementById("unlock-overlay").style.display = "none";
+  explodeLove();
+
+  setTimeout(() => {
+    document.getElementById("love-letter-PROPOSAL").style.display = "flex";
+  }, 300);
 }
 
+function closeLetter() {
+  document.getElementById("love-letter-PROPOSAL").style.display = "none";
+}
+
+/* =========================
+   RUNAWAY NO BUTTON
+========================= */
 function runAway(btn) {
-  btn.style.transform =
-    `translate(${Math.random()*150}px, ${Math.random()*150}px)`;
+  btn.style.transform = `translate(${Math.random()*200}px, ${Math.random()*200}px)`;
+}
+
+/* =========================
+   IMAGE GALLERY
+========================= */
+document.addEventListener("click", e => {
+  if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
+    openGallery(e.target.src);
+  }
+});
+
+function openGallery(src) {
+  const g = document.createElement("div");
+  g.id = "gallery-overlay";
+  g.innerHTML = `
+    <div class="gallery-box">
+      <img src="${src}">
+      <button onclick="closeGallery()">✕</button>
+    </div>`;
+  document.body.appendChild(g);
+}
+
+function closeGallery() {
+  const g = document.getElementById("gallery-overlay");
+  if (g) g.remove();
+}
+
+/* =========================
+   TIME COUNTER
+========================= */
+const startDate = new Date("2023-12-19");
+const daysEl = document.getElementById("days");
+if (daysEl) {
+  daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
 }
