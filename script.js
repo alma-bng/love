@@ -183,4 +183,26 @@ function enterSite() {
   openScrollLetter();  // show scroll properly centered
 }
 
+function sayYes() {
+  document.getElementById("yes-message").classList.remove("hidden");
+
+  const music = document.getElementById("love-music");
+  music.volume = 0.8;
+  music.play();
+
+  explodeLove();
+
+  // show locked surprise instead of letter
+  setTimeout(() => {
+    document.getElementById("unlock-overlay").classList.add("show");
+  }, 700);
+}
+function unlockProposal() {
+  document.getElementById("unlock-overlay").classList.remove("show");
+
+  setTimeout(() => {
+    document.getElementById("proposal-letter").classList.add("show");
+  }, 300);
+}
+
 
