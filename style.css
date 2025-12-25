@@ -386,5 +386,48 @@ body {
   display: block;
   background: transparent;
 }
+#gallery-overlay {
+  position: fixed;
+  inset: 0; /* top:0; left:0; right:0; bottom:0 */
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.gallery-box {
+  position: relative;
+  max-width: 90vw;
+  max-height: 80vh;
+  animation: zoomIn 0.3s ease;
+}
+
+.gallery-box img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.gallery-box button {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: #fff;
+  border: none;
+  font-size: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 
 
