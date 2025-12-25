@@ -130,24 +130,30 @@
       </section>
     </div>
 
-    <!-- PICTURES -->
-    <div class="card" onclick="openSection('pictures')">
-      <h5>Favorite Pictures 💋</h5>
-      <section id="pictures" class="content hidden">
-        <ul>
-          <li><img src="first date.jpeg"></li>
-          <li><img src="first day.jpeg"></li>
-          <li><img src="picnic.jpeg"></li>
-          <li><img src="dini1.jpeg"></li>
-          <li><img src="2.jpeg"></li>
-          <li><img src="3.jpeg"></li>
-          <li><img src="5.jpeg"></li>
-          <li><img src="6.jpeg"></li>
-          <li><img src="7.jpeg"></li>
-        </ul>
-        <button onclick="goBack(event)">← Close</button>
-      </section>
-    </div>
+<!-- PICTURES CARD -->
+<div class="card" onclick="openSection('pictures')">
+  <h5>Favorite Pictures 💋</h5>
+</div>
+
+<!-- PICTURES SECTION -->
+<section id="pictures" class="content hidden">
+  <h2>Our Memories 🤍</h2>
+
+  <div class="gallery-soft">
+    <img src="first date.jpeg" alt="">
+    <img src="first day.jpeg" alt="">
+    <img src="picnic.jpeg" alt="">
+    <img src="dini1.jpeg" alt="">
+    <img src="2.jpeg" alt="">
+    <img src="3.jpeg" alt="">
+    <img src="5.jpeg" alt="">
+    <img src="6.jpeg" alt="">
+    <img src="7.jpeg" alt="">
+  </div>
+
+  <button onclick="goBack(event)">← Close</button>
+</section>
+  
 <!-- ===== PROPOSAL CARD ===== -->
 <div class="card" onclick="openSection('proposal')">
   <h4>PROPOSAL</h4>
@@ -203,6 +209,7 @@
 <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
