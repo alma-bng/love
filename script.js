@@ -142,4 +142,11 @@ const startDate = new Date("2023-12-19");
 const daysEl = document.getElementById("days");
 if(daysEl) {
   daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
-}
+}// after gate is opened:
+explodeLove();
+setTimeout(() => {
+  const scroll = document.getElementById("love-letter-SCROLL");
+  if(scroll) scroll.classList.remove("hidden");
+}, 300);
+
+
