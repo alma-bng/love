@@ -177,36 +177,4 @@ function closeImage() {
 
 function closeImage() {
   document.getElementById("image-viewer").classList.add("hidden");
-}function openGallery(src) {
-  // Remove old gallery if it exists
-  const old = document.getElementById("gallery-overlay");
-  if (old) old.remove();
-
-  // Create overlay
-  const g = document.createElement("div");
-  g.id = "gallery-overlay";
-  g.innerHTML = `
-    <div class="gallery-box">
-      <img src="${src}">
-      <button onclick="closeGallery()">✕</button>
-    </div>
-  `;
-  document.body.appendChild(g);
 }
-
-function closeGallery() {
-  const g = document.getElementById("gallery-overlay");
-  if (g) g.remove();
-}
-
-// Listen for clicks on pictures
-document.addEventListener("click", e => {
-  if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
-    openGallery(e.target.src);
-  }
-});
-
-
-
-
-
