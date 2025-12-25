@@ -149,40 +149,34 @@ const startDate = new Date("2023-12-19");
 const daysEl = document.getElementById("days");
 if (daysEl) {
   daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
-}function sayYes() {
-  // Show YAY message & hearts
+function sayYes() {
+  // Show yay message and play music
   document.getElementById("yes-message").classList.remove("hidden");
   document.getElementById("kiss").classList.remove("hidden");
+  const music = document.getElementById("love-music");
+  music.volume = 0.8;
+  music.play();
+
+  // Trigger love explosion
   explodeLove();
 
-  // Play music
-  const music = document.getElementById("love-music");
-  if (music) {
-    music.volume = 0.8;
-    music.currentTime = 0;
-    music.play();
-  }
-
-  // Show "Tap to unlock your surprise" overlay after YES
+  // Show the unlock overlay inside proposal after a short delay
   setTimeout(() => {
     document.getElementById("unlock-overlay").classList.remove("hidden");
-  }, 800); // slight delay for drama
+  }, 700);
 }
 
-// Unlock the proposal letter
 function unlockProposal() {
-  document.getElementById("unlock-overlay").classList.add("hidden"); // hide overlay
-  explodeLove();
+  const overlay = document.getElementById("unlock-overlay");
+  const letter = document.getElementById("love-letter-PROPOSAL");
 
-  // Show the actual proposal letter
-  setTimeout(() => {
-    document.getElementById("love-letter-PROPOSAL").classList.remove("hidden");
-  }, 300);
+  // Hide the unlock overlay
+  overlay.classList.add("hidden");
+
+  // Show proposal letter inside overlay
+  letter.classList.remove("hidden");
 }
 
-// Close proposal letter
 function closeLetter() {
   document.getElementById("love-letter-PROPOSAL").classList.add("hidden");
 }
-
-
