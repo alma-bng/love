@@ -414,6 +414,51 @@ body {
   100% { transform: scaleY(0); }
 }
 
+.love-heart {
+  position: fixed;
+  animation: floatUp 2s ease forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-600px);
+    opacity: 0;
+  }
+}
+
+#gallery-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.gallery-box {
+  position: relative;
+}
+
+.gallery-box img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 12px;
+}
+
+.gallery-box button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 
 
 
