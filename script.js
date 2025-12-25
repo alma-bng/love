@@ -13,20 +13,22 @@ function enterSite() {
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
-  explodeLove();           // 💥 LOVE EXPLOSION
-  openScrollLetter();      // 📜 OPEN LETTER IMMEDIATELY
+  explodeLove();       // 💥 LOVE EXPLOSION
+  openScrollLetter();  // 📜 SCROLL OPENS
 }
 
 /* ================= LOVE EXPLOSION ================= */
 function explodeLove() {
-  for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("div");
-    heart.innerHTML = "💖";
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("span");
+    heart.textContent = "💖";
     heart.className = "love-heart";
 
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.top = window.innerHeight + "px";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.left = window.innerWidth / 2 + "px";
+    heart.style.top = window.innerHeight / 2 + "px";
+
+    heart.style.setProperty("--x", `${(Math.random() - 0.5) * 500}px`);
+    heart.style.setProperty("--y", `${(Math.random() - 1) * 600}px`);
 
     document.body.appendChild(heart);
 
@@ -34,11 +36,9 @@ function explodeLove() {
   }
 }
 
-/* ================= NAV / CARDS ================= */
+/* ================= NAV ================= */
 function openSection(id) {
-  document.querySelectorAll(".content").forEach(sec =>
-    sec.classList.add("hidden")
-  );
+  document.querySelectorAll(".content").forEach(c => c.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
@@ -49,36 +49,27 @@ function goBack(e) {
 
 /* ================= SCROLL LETTER ================= */
 function openScrollLetter() {
-  const overlay = document.getElementById("love-letter-SCROLL");
-  overlay.classList.remove("hidden");
+  document.getElementById("love-letter-SCROLL").classList.remove("hidden");
 }
 
 function closeScrollLetter() {
   document.getElementById("love-letter-SCROLL").classList.add("hidden");
 }
 
-/* ================= PICTURES GALLERY ================= */
+/* ================= GALLERY ================= */
 document.addEventListener("click", e => {
   if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
-    openGallery(e.target.src);
+    const overlay = document.createElement("div");
+    overlay.id = "gallery-overlay";
+    overlay.innerHTML = `
+      <div class="gallery-box">
+        <img src="${e.target.src}">
+        <button onclick="this.closest('#gallery-overlay').remove()">✕</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
   }
 });
-
-function openGallery(src) {
-  const gallery = document.createElement("div");
-  gallery.id = "gallery-overlay";
-  gallery.innerHTML = `
-    <div class="gallery-box">
-      <img src="${src}">
-      <button onclick="closeGallery()">✕</button>
-    </div>
-  `;
-  document.body.appendChild(gallery);
-}
-
-function closeGallery() {
-  document.getElementById("gallery-overlay")?.remove();
-}
 
 /* ================= PROPOSAL ================= */
 function sayYes() {
@@ -88,23 +79,19 @@ function sayYes() {
   music.volume = 0.8;
   music.play();
 
-  explodeLove(); // extra love 💖
+  explodeLove();
 
   setTimeout(() => {
-    document
-      .getElementById("love-letter-PROPOSAL")
-      .classList.remove("hidden");
+    document.getElementById("love-letter-PROPOSAL").classList.remove("hidden");
   }, 600);
 }
 
 function closeLetter() {
-  document
-    .getElementById("love-letter-PROPOSAL")
-    .classList.add("hidden");
+  document.getElementById("love-letter-PROPOSAL").classList.add("hidden");
 }
 
 function runAway(btn) {
-  btn.style.transform = `translate(${Math.random()*150}px, ${Math.random()*150}px)`;
+  btn.style.transform = `translate(${Math.random() * 160}px, ${Math.random() * 160}px)`;
 }
 
 /* ================= TIME ================= */
