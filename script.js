@@ -1,24 +1,15 @@
 const MAGIC_WORD = "love";
-
-/* =========================
-   STATE CONTROL
-========================= */
 let memoriesOpened = false;
 
-/* =========================
-   LOVE EXPLOSION (ALL AROUND)
-========================= */
 function explodeLove() {
   const hearts = ["💖","💘","💝","💗","💓","❤️"];
   for (let i = 0; i < 60; i++) {
     const heart = document.createElement("span");
     heart.className = "love-heart";
     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-
     heart.style.left = Math.random() * window.innerWidth + "px";
     heart.style.top = Math.random() * window.innerHeight + "px";
     heart.style.fontSize = 16 + Math.random() * 24 + "px";
-
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 2500);
   }
@@ -40,36 +31,29 @@ function enterSite() {
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
-  // Hearts explode
+  // Hearts
   explodeLove();
 
-  // Show scroll letter immediately
-  const scroll = document.getElementById("love-letter-SCROLL");
-  if (scroll) scroll.classList.remove("hidden");
+  // SHOW SCROLL LETTER
+  const scrollLetter = document.getElementById("love-letter-SCROLL");
+  scrollLetter.classList.add("show"); // use .show, not hidden
 }
 
 /* =========================
    SCROLL LETTER
 ========================= */
 function closeScrollLetter() {
-  document.getElementById("love-letter-SCROLL").classList.add("hidden");
-
-  // Optional: secret message after staying 5+ seconds
-  setTimeout(() => {
-    alert("💌 Secret message: I’ll always be here for you 💖");
-  }, 5000);
+  document.getElementById("love-letter-SCROLL").classList.remove("show");
 }
 
 /* =========================
    SECTIONS
 ========================= */
 function openSection(id) {
-  // Lock proposal until memories opened
   if (id === "proposal" && !memoriesOpened) {
     alert("Open Favorite Days first 💌");
     return;
   }
-
   document.querySelectorAll(".content").forEach(c => c.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 
@@ -85,11 +69,9 @@ function goBack(e) {
    PROPOSAL FLOW
 ========================= */
 function sayYes() {
-  // Show YAY message
   document.getElementById("yes-message").classList.remove("hidden");
   document.getElementById("kiss").classList.remove("hidden");
 
-  // Play music
   const music = document.getElementById("love-music");
   music.currentTime = 0;
   music.volume = 0.8;
@@ -97,29 +79,20 @@ function sayYes() {
 
   explodeLove();
 
-  // Show "Unlock Surprise" button after a delay
+  // show unlock surprise after yes
   setTimeout(() => {
-    const overlay = document.getElementById("unlock-overlay");
-    overlay.style.display = "flex";
-  }, 800);
+    document.getElementById("unlock-overlay").classList.add("show");
+  }, 700);
 }
 
 function unlockProposal() {
-  const overlay = document.getElementById("unlock-overlay");
-  const letter = document.getElementById("love-letter-PROPOSAL");
-
-  overlay.style.display = "none"; // hide the unlock overlay
+  document.getElementById("unlock-overlay").classList.remove("show");
+  document.getElementById("love-letter-PROPOSAL").classList.add("show");
   explodeLove();
-
-  // Show proposal letter dramatically
-  letter.style.display = "flex";
 }
 
-/* =========================
-   CLOSE PROPOSAL LETTER
-========================= */
 function closeLetter() {
-  document.getElementById("love-letter-PROPOSAL").style.display = "none";
+  document.getElementById("love-letter-PROPOSAL").classList.remove("show");
 }
 
 /* =========================
@@ -127,31 +100,6 @@ function closeLetter() {
 ========================= */
 function runAway(btn) {
   btn.style.transform = `translate(${Math.random()*200}px, ${Math.random()*200}px)`;
-}
-
-/* =========================
-   IMAGE GALLERY
-========================= */
-document.addEventListener("click", e => {
-  if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
-    openGallery(e.target.src);
-  }
-});
-
-function openGallery(src) {
-  const g = document.createElement("div");
-  g.id = "gallery-overlay";
-  g.innerHTML = `
-    <div class="gallery-box">
-      <img src="${src}">
-      <button onclick="closeGallery()">✕</button>
-    </div>`;
-  document.body.appendChild(g);
-}
-
-function closeGallery() {
-  const g = document.getElementById("gallery-overlay");
-  if (g) g.remove();
 }
 
 /* =========================
