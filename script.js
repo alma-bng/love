@@ -1,30 +1,43 @@
 const MAGIC_WORD = "love";
 
-/* ================= LOVE EXPLOSION ================= */
+/* =========================
+   LOVE EXPLOSION
+========================= */
 function explodeLove() {
-  const hearts = ["💖", "💘", "💝", "💗", "💓", "❤️"];
+  const hearts = ["💖","💘","💝","💗","💓","❤️"];
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
 
-  for (let i = 0; i < 45; i++) {
+  for (let i = 0; i < 40; i++) {
     const heart = document.createElement("span");
     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
     heart.className = "love-heart";
 
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
+    const x = (Math.random() - 0.5) * 800; // horizontal offset
+    const y = (Math.random() - 0.8) * 800; // vertical offset
+    const size = 20 + Math.random() * 30;
 
-    heart.style.left = cx + "px";
-    heart.style.top = cy + "px";
+    heart.style.left = centerX + "px";
+    heart.style.top = centerY + "px";
+    heart.style.fontSize = size + "px";
 
-    heart.style.setProperty("--x", `${(Math.random() - 0.5) * 900}px`);
-    heart.style.setProperty("--y", `${(Math.random() - 0.8) * 900}px`);
+    // Assign random transform offsets as CSS variables
+    heart.style.setProperty("--x", x + "px");
+    heart.style.setProperty("--y", y + "px");
+
+    // Random animation delay so hearts don’t move exactly together
+    heart.style.animationDelay = (Math.random() * 0.5) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 2600);
+    // Remove heart after animation
+    setTimeout(() => heart.remove(), 3000);
   }
 }
 
-/* ================= GATE ================= */
+/* =========================
+   GATE
+========================= */
 function enterSite() {
   const value = document.getElementById("magic-word").value.toLowerCase();
   const error = document.getElementById("gate-error");
@@ -37,11 +50,13 @@ function enterSite() {
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
-  explodeLove();
+  explodeLove();          // 💥 LOVE EXPLOSION
   setTimeout(openScrollLetter, 200);
 }
 
-/* ================= NAV / CARDS ================= */
+/* =========================
+   NAV / CARDS
+========================= */
 function openSection(id) {
   document.querySelectorAll(".content").forEach(c =>
     c.classList.add("hidden")
@@ -54,16 +69,21 @@ function goBack(e) {
   e.target.closest(".content").classList.add("hidden");
 }
 
-/* ================= SCROLL LETTER ================= */
+/* =========================
+   SCROLL LETTER
+========================= */
 function openScrollLetter() {
-  document.getElementById("love-letter-SCROLL").classList.remove("hidden");
+  const overlay = document.getElementById("love-letter-SCROLL");
+  overlay.classList.remove("hidden");
 }
 
 function closeScrollLetter() {
   document.getElementById("love-letter-SCROLL").classList.add("hidden");
 }
 
-/* ================= GALLERY ================= */
+/* =========================
+   GALLERY
+========================= */
 document.addEventListener("click", e => {
   if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
     const overlay = document.createElement("div");
@@ -78,7 +98,9 @@ document.addEventListener("click", e => {
   }
 });
 
-/* ================= PROPOSAL ================= */
+/* =========================
+   PROPOSAL
+========================= */
 function sayYes() {
   document.getElementById("yes-message").classList.remove("hidden");
 
@@ -86,7 +108,7 @@ function sayYes() {
   music.volume = 0.8;
   music.play();
 
-  explodeLove();
+  explodeLove();  // Extra love when YES
 
   setTimeout(() => {
     document.getElementById("love-letter-PROPOSAL").classList.remove("hidden");
@@ -101,7 +123,9 @@ function runAway(btn) {
   btn.style.transform = `translate(${Math.random() * 200}px, ${Math.random() * 200}px)`;
 }
 
-/* ================= TIME ================= */
+/* =========================
+   TIME COUNTER
+========================= */
 const startDate = new Date("2023-12-19");
 const daysEl = document.getElementById("days");
 if (daysEl) {
