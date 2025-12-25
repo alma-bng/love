@@ -349,4 +349,42 @@ body {
   transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
+/* =====================
+   REMOVE WHITE SPACE IN PICTURES
+===================== */
+
+.card:has(#pictures) {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+#pictures {
+  background: transparent;
+  padding: 0;
+}
+
+#pictures ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 6px;
+}
+
+#pictures li {
+  margin: 0;
+  padding: 0;
+}
+
+#pictures img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+  background: transparent;
+}
+
 
