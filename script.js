@@ -149,4 +149,38 @@ setTimeout(() => {
   if(scroll) scroll.classList.remove("hidden");
 }, 300);
 
+function openScrollLetter() {
+  const scroll = document.getElementById("love-letter-SCROLL");
+  if(scroll) {
+    scroll.classList.add("show");
+  }
+}
+
+function closeScrollLetter() {
+  const scroll = document.getElementById("love-letter-SCROLL");
+  if(scroll) {
+    scroll.classList.remove("show");
+  }
+}
+
+// Call this only after correct magic word
+// Example:
+function enterSite() {
+  const input = document.getElementById("magic-word");
+  const value = input.value.toLowerCase();
+  const error = document.getElementById("gate-error");
+
+  if (value !== "love") {
+    error.style.display = "block";
+    return;
+  }
+
+  error.style.display = "none";
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("main-content").classList.remove("hidden");
+
+  explodeLove();      // hearts all around
+  openScrollLetter();  // show scroll properly centered
+}
+
 
