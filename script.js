@@ -1,29 +1,30 @@
 const MAGIC_WORD = "love";
 
+let memoriesViewed = false;
+let proposalUnlocked = false;
+let surpriseUnlocked = false;
+
 /* ================= LOVE EXPLOSION ================= */
 function explodeLove() {
   const hearts = ["💖","💘","💝","💗","💓","❤️"];
-
-  for (let i = 0; i < 45; i++) {
-    const heart = document.createElement("span");
-    heart.className = "love-heart";
-    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    heart.style.fontSize = 18 + Math.random() * 22 + "px";
-
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2500);
+  for (let i = 0; i < 40; i++) {
+    const h = document.createElement("span");
+    h.className = "love-heart";
+    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.top = Math.random() * 100 + "vh";
+    h.style.fontSize = 18 + Math.random() * 22 + "px";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 2500);
   }
 }
 
 /* ================= GATE ================= */
 function enterSite() {
-  const input = document.getElementById("magic-word");
+  const value = document.getElementById("magic-word").value.toLowerCase();
   const error = document.getElementById("gate-error");
 
-  if (input.value.toLowerCase() !== MAGIC_WORD) {
+  if (value !== MAGIC_WORD) {
     error.classList.remove("hidden");
     return;
   }
@@ -33,53 +34,41 @@ function enterSite() {
   document.getElementById("main-content").classList.remove("hidden");
 
   explodeLove();
-  openScrollLetter();
-  startSecretTimer();
 }
 
-/* ================= SCROLL LETTER ================= */
-function openScrollLetter() {
-  document.getElementById("love-letter-SCROLL")
-    .classList.add("show");
-}
-
-function closeScrollLetter() {
-  document.getElementById("love-letter-SCROLL")
-    .classList.remove("show");
-}
-
-/* ================= CARDS ================= */
+/* ================= MEMORIES ================= */
 function openSection(id) {
-  document.querySelectorAll(".content")
-    .forEach(c => c.classList.add("hidden"));
+  document.querySelectorAll(".content").forEach(c =>
+    c.classList.add("hidden")
+  );
 
-  document.getElementById(id)
-    .classList.remove("hidden");
+  const section = document.getElementById(id);
+  section.classList.remove("hidden");
+
+  if (id === "memories") {
+    memoriesViewed = true;
+  }
 }
 
 function goBack(e) {
   e.stopPropagation();
-  e.target.closest(".content")
-    .classList.add("hidden");
+  e.target.closest(".content").classList.add("hidden");
 }
 
-/* ================= GALLERY ================= */
-document.addEventListener("click", e => {
-  if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
-    const overlay = document.createElement("div");
-    overlay.id = "gallery-overlay";
-    overlay.innerHTML = `
-      <div class="gallery-box">
-        <img src="${e.target.src}">
-        <button onclick="this.closest('#gallery-overlay').remove()">✕</button>
-      </div>
-    `;
-    document.body.appendChild(overlay);
+/* ================= PROPOSAL (LOCKED) ================= */
+function tryOpenProposal() {
+  if (!memoriesViewed) {
+    alert("Some memories are still waiting 💭");
+    return;
   }
-});
+  proposalUnlocked = true;
+  openSection("proposal");
+}
 
-/* ================= PROPOSAL ================= */
+/* ================= YES BUTTON ================= */
 function sayYes() {
+  if (!proposalUnlocked) return;
+
   document.getElementById("yes-message").classList.remove("hidden");
 
   const music = document.getElementById("love-music");
@@ -88,20 +77,24 @@ function sayYes() {
 
   explodeLove();
 
-  // ONLY NOW show the surprise
   setTimeout(() => {
     document.getElementById("unlock-overlay")
       .classList.add("show");
-  }, 700);
+  }, 800);
 }
 
+/* ================= UNLOCK SURPRISE ================= */
 function unlockProposal() {
+  if (surpriseUnlocked) return;
+  surpriseUnlocked = true;
+
   document.getElementById("unlock-overlay")
     .classList.remove("show");
 
   setTimeout(() => {
-    document.getElementById("love-letter-PROPOSAL")
-      .classList.add("show");
+    const letter = document.getElementById("love-letter-PROPOSAL");
+    letter.classList.remove("hidden");
+    letter.classList.add("show");
   }, 300);
 }
 
@@ -110,36 +103,8 @@ function closeLetter() {
     .classList.remove("show");
 }
 
+/* ================= NO BUTTON ================= */
 function runAway(btn) {
   btn.style.transform =
-    `translate(${Math.random()*160}px, ${Math.random()*160}px)`;
-}
-
-/* ================= TIME COUNTER ================= */
-const startDate = new Date("2023-12-19");
-const daysEl = document.getElementById("days");
-if (daysEl) {
-  daysEl.innerText =
-    Math.floor((new Date() - startDate) / 86400000);
-}
-
-/* ================= SECRET MESSAGE ================= */
-function startSecretTimer() {
-  setTimeout(() => {
-    const secret = document.createElement("div");
-    secret.className = "letter-overlay show";
-    secret.innerHTML = `
-      <div class="scroll">
-        <div class="scroll-content">
-          <h2>🤍 Still here?</h2>
-          <p>
-            If you stayed this long, it means something.
-            I love how gently you exist in my life.
-          </p>
-          <button onclick="this.closest('.letter-overlay').remove()">Close</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(secret);
-  }, 90000); // 1.5 minutes
+    `translate(${Math.random()*150}px, ${Math.random()*150}px)`;
 }
