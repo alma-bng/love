@@ -9,9 +9,17 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background: #fdf7f9;
+  background: linear-gradient(120deg, #f9d5e5, #fde2e2, #e2f0cb, #c9f0f0);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
   color: #2e2e2e;
   min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
 /* =====================
@@ -139,8 +147,8 @@ body {
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 30px 50px rgba(255, 192, 203, 0.3), 0 0 20px rgba(255, 182, 193, 0.5) inset;
 }
 
 .card h2,
@@ -230,6 +238,12 @@ body {
   text-align: center;
   font-size: 2.5rem;
   margin-top: 0.5rem;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* =====================
@@ -241,45 +255,10 @@ body {
   margin-bottom: 0.8rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
-#yes-message,
-#kiss {
-  animation: fadeIn 0.8s ease forwards;
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.hidden {
-  display: none;
-}
-
-.content.show {
-  display: block;
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
-}
-#love-counter {
-  text-align: center;
-  font-size: 1rem;
-  margin-bottom: 3rem;
-  color: #6b3f4a;
-  font-family: 'Playfair Display', serif;
-}
-
-
+/* =====================
+   TIME PAGE
+===================== */
 .time-page {
   text-align: center;
   padding-top: 2rem;
@@ -311,78 +290,22 @@ body {
   color: #5a3b43;
 }
 
-.time-details {
-  font-size: 0.95rem;
-  color: #7a4b58;
-  margin-bottom: 1.2rem;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.anniversary-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  color: #3a1f28;
-  margin-top: 1.2rem;
-  animation: fadeIn 1s ease;
-}
-body {
-  background: linear-gradient(120deg, #f9d5e5, #fde2e2, #e2f0cb, #c9f0f0);
-  background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
-.card:hover {
-  box-shadow: 0 30px 50px rgba(255, 192, 203, 0.3), 0 0 20px rgba(255, 182, 193, 0.5) inset;
-  transform: translateY(-6px) scale(1.02);
-}
-#love-letter {
+/* =====================
+   LOVE LETTERS CENTERED
+===================== */
+#love-letter-SCROLL,
+#love-letter-PROPOSAL {
   position: fixed;
   inset: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background: rgba(0,0,0,0.6);
   z-index: 500;
 }
 
-.scroll {
-  background: #fff8e7; /* parchment color */
-  border: 2px solid #d6bfa0;
-  border-radius: 12px;
-  width: 80%;
-  max-width: 500px;
-  max-height: 80%;
-  overflow: hidden;
-  transform: scaleY(0); /* start closed */
-  transform-origin: top;
-  animation: openScroll 1s forwards;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-  padding: 2rem;
-  font-family: 'Playfair Display', serif;
-  color: #4a2c2a;
-}
-
-@keyframes openScroll {
-  0% { transform: scaleY(0); }
-  60% { transform: scaleY(1.1); } /* slightly overshoot */
-  100% { transform: scaleY(1); }
-}
-
-.scroll-content {
-  opacity: 0;
-  animation: fadeInText 1s 1s forwards; /* fade in after scroll opens */
-}
-
-@keyframes fadeInText {
-  to { opacity: 1; }
-}
-
-.scroll {
+.scroll,
+.letter-box {
   background: #fff8e7;
   border: 2px solid #d6bfa0;
   border-radius: 12px;
@@ -390,44 +313,36 @@ body {
   max-width: 500px;
   max-height: 80%;
   overflow: hidden;
-  transform: scaleY(0);
-  transform-origin: top;
-  animation: openScroll 1s forwards;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
   padding: 2rem;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Playfair Display', serif;
   color: #4a2c2a;
+  animation: popIn 0.6s ease forwards;
 }
 
-.scroll.close {
-  animation: closeScroll 0.8s forwards;
+@keyframes popIn {
+  from { transform: scale(0.6) translateY(40px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-@keyframes openScroll {
-  0% { transform: scaleY(0); }
-  60% { transform: scaleY(1.1); }
-  100% { transform: scaleY(1); }
-}
-
-@keyframes closeScroll {
-  0% { transform: scaleY(1); }
-  100% { transform: scaleY(0); }
-}
-
+/* =====================
+   LOVE EXPLOSION
+===================== */
 .love-heart {
   position: fixed;
-  animation: floatUp 2s ease forwards;
+  font-size: 28px;
   pointer-events: none;
   z-index: 9999;
+  animation: explode 2.5s ease-out forwards;
 }
 
-@keyframes floatUp {
-  to {
-    transform: translateY(-600px);
-    opacity: 0;
-  }
+@keyframes explode {
+  from { transform: translate(0,0) scale(0.5); opacity:1; }
+  to { transform: translate(var(--x), var(--y)) scale(1.4); opacity:0; }
 }
 
+/* =====================
+   GALLERY
+===================== */
 #gallery-overlay {
   position: fixed;
   inset: 0;
@@ -458,8 +373,3 @@ body {
   border-radius: 50%;
   cursor: pointer;
 }
-
-
-
-
-
