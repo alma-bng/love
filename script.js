@@ -40,11 +40,12 @@ function enterSite() {
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
-  // Hearts and scroll letter
+  // Hearts explode
   explodeLove();
-  setTimeout(() => {
-    document.getElementById("love-letter-SCROLL").classList.remove("hidden");
-  }, 400);
+
+  // Show scroll letter immediately
+  const scroll = document.getElementById("love-letter-SCROLL");
+  if (scroll) scroll.classList.remove("hidden");
 }
 
 /* =========================
@@ -52,6 +53,11 @@ function enterSite() {
 ========================= */
 function closeScrollLetter() {
   document.getElementById("love-letter-SCROLL").classList.add("hidden");
+
+  // Optional: secret message after staying 5+ seconds
+  setTimeout(() => {
+    alert("💌 Secret message: I’ll always be here for you 💖");
+  }, 5000);
 }
 
 /* =========================
@@ -79,9 +85,11 @@ function goBack(e) {
    PROPOSAL FLOW
 ========================= */
 function sayYes() {
+  // Show YAY message
   document.getElementById("yes-message").classList.remove("hidden");
   document.getElementById("kiss").classList.remove("hidden");
 
+  // Play music
   const music = document.getElementById("love-music");
   music.currentTime = 0;
   music.volume = 0.8;
@@ -89,25 +97,29 @@ function sayYes() {
 
   explodeLove();
 
-  // Show the unlock overlay after a delay
+  // Show "Unlock Surprise" button after a delay
   setTimeout(() => {
-    document.getElementById("unlock-overlay").classList.remove("hidden");
-  }, 700);
+    const overlay = document.getElementById("unlock-overlay");
+    overlay.style.display = "flex";
+  }, 800);
 }
 
 function unlockProposal() {
   const overlay = document.getElementById("unlock-overlay");
   const letter = document.getElementById("love-letter-PROPOSAL");
 
-  overlay.classList.add("hidden");   // hide unlock button
+  overlay.style.display = "none"; // hide the unlock overlay
   explodeLove();
 
   // Show proposal letter dramatically
-  letter.classList.remove("hidden");
+  letter.style.display = "flex";
 }
 
+/* =========================
+   CLOSE PROPOSAL LETTER
+========================= */
 function closeLetter() {
-  document.getElementById("love-letter-PROPOSAL").classList.add("hidden");
+  document.getElementById("love-letter-PROPOSAL").style.display = "none";
 }
 
 /* =========================
