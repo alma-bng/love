@@ -1,12 +1,12 @@
-/* =========================
-   CONFIG
-========================= */
+// =========================
+// CONFIG
+// =========================
 const MAGIC_WORD = "love";
 let memoriesOpened = false;
 
-/* =========================
-   LOVE EXPLOSION
-========================= */
+// =========================
+// LOVE HEART EXPLOSION
+// =========================
 function explodeLove() {
   const hearts = ["💖","💘","💝","💗","💓","❤️"];
   for (let i = 0; i < 60; i++) {
@@ -21,14 +21,14 @@ function explodeLove() {
   }
 }
 
-/* =========================
-   GATE FUNCTION
-========================= */
+// =========================
+// GATE
+// =========================
 function enterSite() {
   const input = document.getElementById("magic-word");
   const error = document.getElementById("gate-error");
 
-  if (!input || !error) return;
+  if (!input) return;
 
   if (input.value.toLowerCase() !== MAGIC_WORD) {
     error.classList.remove("hidden");
@@ -36,60 +36,58 @@ function enterSite() {
   }
 
   error.classList.add("hidden");
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("main-content").classList.remove("hidden");
 
-  const gate = document.getElementById("gate");
-  const mainContent = document.getElementById("main-content");
-  const scrollLetter = document.getElementById("love-letter-SCROLL");
-
-  if (gate) gate.style.display = "none";
-  if (mainContent) mainContent.classList.remove("hidden");
-
-  // Hearts and show scroll letter
   explodeLove();
 
-  if (scrollLetter) {
-    scrollLetter.classList.add("show"); // must match CSS: .show
-  }
+  // Show scroll letter after 400ms
+  setTimeout(() => {
+    const scrollLetter = document.getElementById("love-letter-SCROLL");
+    scrollLetter.classList.add("show");
+  }, 400);
 }
 
-/* =========================
-   SCROLL LETTER CLOSE
-========================= */
+// =========================
+// SCROLL LETTER
+// =========================
 function closeScrollLetter() {
   const scrollLetter = document.getElementById("love-letter-SCROLL");
-  if (scrollLetter) scrollLetter.classList.remove("show");
+  scrollLetter.classList.remove("show");
 }
 
-/* =========================
-   PROPOSAL & SECTIONS
-========================= */
+// =========================
+// SECTIONS
+// =========================
 function openSection(id) {
+  // Lock proposal until memories opened
   if (id === "proposal" && !memoriesOpened) {
     alert("Open Favorite Days first 💌");
     return;
   }
 
   document.querySelectorAll(".content").forEach(c => c.classList.add("hidden"));
-  const section = document.getElementById(id);
-  if (section) section.classList.remove("hidden");
+  document.getElementById(id).classList.remove("hidden");
 
   if (id === "memories") memoriesOpened = true;
 }
 
 function goBack(e) {
   e.stopPropagation();
-  const section = e.target.closest(".content");
-  if (section) section.classList.add("hidden");
+  e.target.closest(".content").classList.add("hidden");
 }
 
-/* =========================
-   PROPOSAL FLOW
-========================= */
+// =========================
+// PROPOSAL FLOW
+// =========================
 function sayYes() {
-  document.getElementById("yes-message").classList.remove("hidden");
-  document.getElementById("kiss").classList.remove("hidden");
-
+  const yesMsg = document.getElementById("yes-message");
+  const kiss = document.getElementById("kiss");
   const music = document.getElementById("love-music");
+
+  yesMsg.classList.remove("hidden");
+  kiss.classList.remove("hidden");
+
   if (music) {
     music.currentTime = 0;
     music.volume = 0.8;
@@ -98,36 +96,64 @@ function sayYes() {
 
   explodeLove();
 
+  // Show unlock surprise after YES
   setTimeout(() => {
-    const unlockOverlay = document.getElementById("unlock-overlay");
-    if (unlockOverlay) unlockOverlay.classList.add("show");
+    const unlock = document.getElementById("unlock-overlay");
+    unlock.classList.add("show");
   }, 700);
 }
 
+// Unlock the surprise letter inside overlay
 function unlockProposal() {
   const overlay = document.getElementById("unlock-overlay");
   const letter = document.getElementById("love-letter-PROPOSAL");
 
-  if (overlay) overlay.classList.remove("show");
-  if (letter) letter.classList.add("show");
+  overlay.classList.remove("show");
+  letter.classList.add("show");
   explodeLove();
 }
 
+// Close proposal letter
 function closeLetter() {
   const letter = document.getElementById("love-letter-PROPOSAL");
-  if (letter) letter.classList.remove("show");
+  letter.classList.remove("show");
 }
 
-/* =========================
-   RUNAWAY NO BUTTON
-========================= */
+// =========================
+// RUNAWAY NO BUTTON
+// =========================
 function runAway(btn) {
   btn.style.transform = `translate(${Math.random()*200}px, ${Math.random()*200}px)`;
 }
 
-/* =========================
-   TIME COUNTER
-========================= */
+// =========================
+// IMAGE GALLERY
+// =========================
+document.addEventListener("click", e => {
+  if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
+    openGallery(e.target.src);
+  }
+});
+
+function openGallery(src) {
+  const g = document.createElement("div");
+  g.id = "gallery-overlay";
+  g.innerHTML = `
+    <div class="gallery-box">
+      <img src="${src}">
+      <button onclick="closeGallery()">✕</button>
+    </div>`;
+  document.body.appendChild(g);
+}
+
+function closeGallery() {
+  const g = document.getElementById("gallery-overlay");
+  if (g) g.remove();
+}
+
+// =========================
+// TIME COUNTER
+// =========================
 const startDate = new Date("2023-12-19");
 const daysEl = document.getElementById("days");
 if (daysEl) {
