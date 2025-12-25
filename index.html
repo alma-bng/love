@@ -148,52 +148,53 @@
         <button onclick="goBack(event)">← Close</button>
       </section>
     </div>
+<!-- ===== PROPOSAL CARD ===== -->
+<div class="card" onclick="openSection('proposal')">
+  <h4>PROPOSAL</h4>
+  <section id="proposal" class="content hidden">
+    <p>WOULD YOU GO ON INFINITE DATES WITH ME? 💍</p>
 
-    <!-- PROPOSAL -->
-    <div class="card" onclick="openSection('proposal')">
-      <h4>PROPOSAL</h4>
-      <section id="proposal" class="content hidden">
-        <p>WOULD YOU GO ON INFINITE DATES WITH ME? 💍</p>
-
-        <div class="proposal-buttons">
-          <button class="yes-btn" onclick="sayYes()">YES 💖</button>
-          <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
-        </div>
-
-        <div id="yes-message" class="hidden">
-          YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
-        </div>
-
-        <div id="kiss" class="hidden">💋</div>
-
-        <audio id="love-music" preload="auto" playsinline>
-          <source src="bloom.mp3" type="audio/mpeg">
-        </audio>
-    
-<!-- ===== UNLOCK SURPRISE ===== -->
-<div id="unlock-overlay" class="letter-overlay hidden">
-  <div class="unlock-box" onclick="unlockProposal()">
-    🔒 <br>
-    <strong>Tap to unlock your surprise</strong>
-  </div>
-</div>
-
-<!-- PROPOSAL LETTER -->
-<div id="love-letter-PROPOSAL" class="letter-overlay hidden">
-  <div class="scroll">
-    <div class="scroll-content">
-      <h2>My Love 💖</h2>
-      <p>
-        I made this for you, quietly, with intention.
-        <br><br>
-        This isn’t loud love. It’s chosen love.
-        <br><br>
-        I will always choose you 💍
-      </p>
-      <button onclick="closeLetter()">Close 💗</button>
+    <div class="proposal-buttons">
+      <button class="yes-btn" onclick="sayYes()">YES 💖</button>
+      <button class="no-btn" onmouseover="runAway(this)">NO 🙄</button>
     </div>
-  </div>
+
+    <div id="yes-message" class="hidden">
+      YAYYYYY 🥹💚 I LOVE YOU FOREVER 💍💖
+    </div>
+
+    <div id="kiss" class="hidden">💋</div>
+
+    <audio id="love-music" preload="auto" playsinline>
+      <source src="bloom.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- UNLOCK SURPRISE BUTTON -->
+    <div id="unlock-overlay" class="letter-overlay hidden">
+      <div class="unlock-box" onclick="unlockProposal()">
+        🔒 <br>
+        <strong>Tap to unlock your surprise</strong>
+
+        <!-- PROPOSAL LETTER INSIDE -->
+        <div id="love-letter-PROPOSAL" class="hidden">
+          <div class="scroll">
+            <div class="scroll-content">
+              <h2>My Love 💖</h2>
+              <p>
+                I made this for you, quietly, with intention.
+                <br><br>
+                This isn’t loud love. It’s chosen love.
+                <br><br>
+                I will always choose you 💍
+              </p>
+              <button onclick="closeLetter()">Close 💗</button>
+            </div>
+          </div>
+        </div>
+
+  </section>
 </div>
+
 
       </section></div>
 </div>
@@ -202,6 +203,7 @@
 <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
