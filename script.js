@@ -40,8 +40,8 @@ function enterSite() {
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
+  // Hearts and scroll letter
   explodeLove();
-
   setTimeout(() => {
     document.getElementById("love-letter-SCROLL").classList.remove("hidden");
   }, 400);
@@ -58,7 +58,7 @@ function closeScrollLetter() {
    SECTIONS
 ========================= */
 function openSection(id) {
-  // LOCK proposal until memories opened
+  // Lock proposal until memories opened
   if (id === "proposal" && !memoriesOpened) {
     alert("Open Favorite Days first 💌");
     return;
@@ -79,11 +79,9 @@ function goBack(e) {
    PROPOSAL FLOW
 ========================= */
 function sayYes() {
-  // YAY MESSAGE
   document.getElementById("yes-message").classList.remove("hidden");
   document.getElementById("kiss").classList.remove("hidden");
 
-  // MUSIC
   const music = document.getElementById("love-music");
   music.currentTime = 0;
   music.volume = 0.8;
@@ -91,23 +89,25 @@ function sayYes() {
 
   explodeLove();
 
-  // LOCKED SURPRISE
+  // Show the unlock overlay after a delay
   setTimeout(() => {
-    document.getElementById("unlock-overlay").style.display = "flex";
-  }, 1600);
+    document.getElementById("unlock-overlay").classList.remove("hidden");
+  }, 700);
 }
 
 function unlockProposal() {
-  document.getElementById("unlock-overlay").style.display = "none";
+  const overlay = document.getElementById("unlock-overlay");
+  const letter = document.getElementById("love-letter-PROPOSAL");
+
+  overlay.classList.add("hidden");   // hide unlock button
   explodeLove();
 
-  setTimeout(() => {
-    document.getElementById("love-letter-PROPOSAL").style.display = "flex";
-  }, 300);
+  // Show proposal letter dramatically
+  letter.classList.remove("hidden");
 }
 
 function closeLetter() {
-  document.getElementById("love-letter-PROPOSAL").style.display = "none";
+  document.getElementById("love-letter-PROPOSAL").classList.add("hidden");
 }
 
 /* =========================
@@ -149,34 +149,4 @@ const startDate = new Date("2023-12-19");
 const daysEl = document.getElementById("days");
 if (daysEl) {
   daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
-function sayYes() {
-  // Show yay message and play music
-  document.getElementById("yes-message").classList.remove("hidden");
-  document.getElementById("kiss").classList.remove("hidden");
-  const music = document.getElementById("love-music");
-  music.volume = 0.8;
-  music.play();
-
-  // Trigger love explosion
-  explodeLove();
-
-  // Show the unlock overlay inside proposal after a short delay
-  setTimeout(() => {
-    document.getElementById("unlock-overlay").classList.remove("hidden");
-  }, 700);
-}
-
-function unlockProposal() {
-  const overlay = document.getElementById("unlock-overlay");
-  const letter = document.getElementById("love-letter-PROPOSAL");
-
-  // Hide the unlock overlay
-  overlay.classList.add("hidden");
-
-  // Show proposal letter inside overlay
-  letter.classList.remove("hidden");
-}
-
-function closeLetter() {
-  document.getElementById("love-letter-PROPOSAL").classList.add("hidden");
 }
