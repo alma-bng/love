@@ -1,65 +1,118 @@
 const MAGIC_WORD = "love";
 
-/* ================= GATE ================= */
+/* =========================
+   LOVE EXPLOSION
+========================= */
+function explodeLove() {
+  const hearts = ["💖","💘","💝","💗","💓","❤️"];
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  for (let i = 0; i < 40; i++) {
+    const heart = document.createElement("span");
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.className = "love-heart";
+
+    const x = (Math.random() - 0.5) * 800;
+    const y = (Math.random() - 0.8) * 800;
+    const size = 20 + Math.random() * 30;
+
+    heart.style.left = centerX + "px";
+    heart.style.top = centerY + "px";
+    heart.style.fontSize = size + "px";
+
+    heart.style.setProperty("--x", x + "px");
+    heart.style.setProperty("--y", y + "px");
+    heart.style.animationDelay = (Math.random() * 0.5) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+
+/* =========================
+   GATE
+========================= */
 function enterSite() {
-  const value = document.getElementById("magic-word").value.toLowerCase();
+  const input = document.getElementById("magic-word");
+  const value = input.value.toLowerCase();
   const error = document.getElementById("gate-error");
 
   if (value !== MAGIC_WORD) {
-    error.classList.remove("hidden");
+    error.style.display = "block";
     return;
   }
 
+  error.style.display = "none";
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
-  explodeLove();           // 💥 LOVE EXPLOSION
-  openScrollLetter();      // 📜 OPEN LETTER IMMEDIATELY
+  // Explosion + scroll letter
+  explodeLove();
+  setTimeout(() => {
+    const scroll = document.getElementById("love-letter-SCROLL");
+    if(scroll) scroll.classList.remove("hidden");
+  }, 300);
 }
 
-/* ================= LOVE EXPLOSION ================= */
-function explodeLove() {
-  for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("div");
-    heart.innerHTML = "💖";
-    heart.className = "love-heart";
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.top = window.innerHeight + "px";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 2000);
-  }
-}
-
-/* ================= NAV / CARDS ================= */
+/* =========================
+   CARDS
+========================= */
 function openSection(id) {
-  document.querySelectorAll(".content").forEach(sec =>
-    sec.classList.add("hidden")
-  );
-  document.getElementById(id).classList.remove("hidden");
+  document.querySelectorAll(".content").forEach(c => c.style.display = "none");
+  const section = document.getElementById(id);
+  if(section) section.style.display = "block";
 }
 
 function goBack(e) {
   e.stopPropagation();
-  e.target.closest(".content").classList.add("hidden");
+  const section = e.target.closest(".content");
+  if(section) section.style.display = "none";
 }
 
-/* ================= SCROLL LETTER ================= */
-function openScrollLetter() {
-  const overlay = document.getElementById("love-letter-SCROLL");
-  overlay.classList.remove("hidden");
-}
-
+/* =========================
+   SCROLL LETTER
+========================= */
 function closeScrollLetter() {
-  document.getElementById("love-letter-SCROLL").classList.add("hidden");
+  const scroll = document.getElementById("love-letter-SCROLL");
+  if(scroll) scroll.classList.add("hidden");
 }
 
-/* ================= PICTURES GALLERY ================= */
+/* =========================
+   PROPOSAL
+========================= */
+function sayYes() {
+  const yesMessage = document.getElementById("yes-message");
+  if(yesMessage) yesMessage.classList.remove("hidden");
+
+  const music = document.getElementById("love-music");
+  if(music) {
+    music.volume = 0.8;
+    music.play();
+  }
+
+  explodeLove();
+
+  setTimeout(() => {
+    const proposalLetter = document.getElementById("love-letter-PROPOSAL");
+    if(proposalLetter) proposalLetter.classList.remove("hidden");
+  }, 500);
+}
+
+function closeLetter() {
+  const proposalLetter = document.getElementById("love-letter-PROPOSAL");
+  if(proposalLetter) proposalLetter.classList.add("hidden");
+}
+
+function runAway(btn) {
+  btn.style.transform = `translate(${Math.random()*200}px, ${Math.random()*200}px)`;
+}
+
+/* =========================
+   IMAGE GALLERY
+========================= */
 document.addEventListener("click", e => {
-  if (e.target.tagName === "IMG" && e.target.closest("#pictures")) {
+  if(e.target.tagName === "IMG" && e.target.closest("#pictures")) {
     openGallery(e.target.src);
   }
 });
@@ -77,38 +130,15 @@ function openGallery(src) {
 }
 
 function closeGallery() {
-  document.getElementById("gallery-overlay")?.remove();
+  const overlay = document.getElementById("gallery-overlay");
+  if(overlay) overlay.remove();
 }
 
-/* ================= PROPOSAL ================= */
-function sayYes() {
-  document.getElementById("yes-message").classList.remove("hidden");
-
-  const music = document.getElementById("love-music");
-  music.volume = 0.8;
-  music.play();
-
-  explodeLove(); // extra love 💖
-
-  setTimeout(() => {
-    document
-      .getElementById("love-letter-PROPOSAL")
-      .classList.remove("hidden");
-  }, 600);
-}
-
-function closeLetter() {
-  document
-    .getElementById("love-letter-PROPOSAL")
-    .classList.add("hidden");
-}
-
-function runAway(btn) {
-  btn.style.transform = `translate(${Math.random()*150}px, ${Math.random()*150}px)`;
-}
-
-/* ================= TIME ================= */
+/* =========================
+   TIME COUNTER
+========================= */
 const startDate = new Date("2023-12-19");
-document.getElementById("days").innerText =
-  Math.floor((new Date() - startDate) / 86400000);
-FIX IT
+const daysEl = document.getElementById("days");
+if(daysEl) {
+  daysEl.innerText = Math.floor((new Date() - startDate) / 86400000);
+}
