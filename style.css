@@ -460,7 +460,45 @@ body {
 }
 
 
+#love-letter-SCROLL {
+  position: fixed;      /* fixes it in the viewport */
+  inset: 0;             /* top:0; bottom:0; left:0; right:0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.4); /* semi-transparent overlay */
+  z-index: 9999;        /* above everything else */
+}
+
+.scroll {
+  background: #fff8e7;
+  border: 2px solid #d6bfa0;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 80%;
+  overflow: hidden;
+  padding: 2rem;
+  font-family: 'Playfair Display', serif;
+  color: #4a2c2a;
+  transform: scaleY(0);
+  transform-origin: top;
+  animation: openScroll 1s forwards;
+}
+
+.scroll-content {
+  opacity: 0;
+  animation: fadeInText 1s 0.8s forwards; /* fade in after scroll opens */
+}
+
+@keyframes openScroll {
+  0% { transform: scaleY(0); }
+  60% { transform: scaleY(1.1); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
 
 
-
-THIS IS MY CSS DONT RUIN IT JUST FIX THE NECESSARY
