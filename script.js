@@ -1,32 +1,33 @@
 const MAGIC_WORD = "love";
 
 /* =========================
-   LOVE EXPLOSION
+   LOVE EXPLOSION (all around)
 ========================= */
 function explodeLove() {
   const hearts = ["💖","💘","💝","💗","💓","❤️"];
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
-
-  for (let i = 0; i < 40; i++) {
+  
+  for (let i = 0; i < 50; i++) {
     const heart = document.createElement("span");
     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
     heart.className = "love-heart";
 
-    const x = (Math.random() - 0.5) * 800;
-    const y = (Math.random() - 0.8) * 800;
-    const size = 20 + Math.random() * 30;
+    // Random start position anywhere on the screen
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
 
-    heart.style.left = centerX + "px";
-    heart.style.top = centerY + "px";
-    heart.style.fontSize = size + "px";
+    // Random size
+    heart.style.fontSize = 15 + Math.random() * 25 + "px";
 
-    heart.style.setProperty("--x", x + "px");
-    heart.style.setProperty("--y", y + "px");
+    // Random movement offsets
+    const xMove = (Math.random() - 0.5) * 400;
+    const yMove = -100 - Math.random() * 400;
+
+    heart.style.setProperty("--x", xMove + "px");
+    heart.style.setProperty("--y", yMove + "px");
     heart.style.animationDelay = (Math.random() * 0.5) + "s";
 
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 3000);
+    setTimeout(() => heart.remove(), 4000);
   }
 }
 
@@ -47,27 +48,12 @@ function enterSite() {
   document.getElementById("gate").style.display = "none";
   document.getElementById("main-content").classList.remove("hidden");
 
-  // Explosion + scroll letter
+  // Explode love everywhere
   explodeLove();
-  setTimeout(() => {
-    const scroll = document.getElementById("love-letter-SCROLL");
-    if(scroll) scroll.classList.remove("hidden");
-  }, 300);
-}
 
-/* =========================
-   CARDS
-========================= */
-function openSection(id) {
-  document.querySelectorAll(".content").forEach(c => c.style.display = "none");
-  const section = document.getElementById(id);
-  if(section) section.style.display = "block";
-}
-
-function goBack(e) {
-  e.stopPropagation();
-  const section = e.target.closest(".content");
-  if(section) section.style.display = "none";
+  // Show the scroll letter immediately, centered
+  const scroll = document.getElementById("love-letter-SCROLL");
+  if (scroll) scroll.classList.remove("hidden");
 }
 
 /* =========================
@@ -106,6 +92,21 @@ function closeLetter() {
 
 function runAway(btn) {
   btn.style.transform = `translate(${Math.random()*200}px, ${Math.random()*200}px)`;
+}
+
+/* =========================
+   CARDS
+========================= */
+function openSection(id) {
+  document.querySelectorAll(".content").forEach(c => c.style.display = "none");
+  const section = document.getElementById(id);
+  if(section) section.style.display = "block";
+}
+
+function goBack(e) {
+  e.stopPropagation();
+  const section = e.target.closest(".content");
+  if(section) section.style.display = "none";
 }
 
 /* =========================
