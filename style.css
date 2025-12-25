@@ -284,4 +284,37 @@ body {
 }
 
 
+/* =====================
+   SOFT MEMORY GALLERY
+===================== */
+
+.gallery-soft {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.photo {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(255,182,193,0.25);
+}
+
+.photo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
 
